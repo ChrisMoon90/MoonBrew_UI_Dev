@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 
 import { socket } from '../App';
 
-
 function LogButtons() {
     const [logState, setLogState] = useState("");
 
