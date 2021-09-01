@@ -4,7 +4,8 @@ import React from 'react';
 import socketio from "socket.io-client";
 
 import Header from './components/Header';
-import MainTable from './components/Table';
+import TempTable from './components/TempTable';
+import FanTable from './components/FanTable';
 import LogButtons from './components/LogButtons';
 import NewAlert from './components/Alert';
 
@@ -18,8 +19,9 @@ function App() {
     <React.Fragment>
     <div className="App">
       <Header />
-      <MainTable />
+      <TempTable />
       <LogButtons />
+      <FanTable />
     </div>
     <div className="Alerts">
           <NewAlert />

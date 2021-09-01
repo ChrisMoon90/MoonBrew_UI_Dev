@@ -3,23 +3,23 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { socket } from '../App';
 
-function SetIndex (props) { 
-  const indexes = props.indexes;
-  const disp_index = indexes[props.sensor];
+function Set_Temp_Index (props) { 
+  const temp_indexes = props.temp_indexes;
+  const disp_temp_index = temp_indexes[props.sensor];
 
   function handleUpdate(e, f) {
-      const indexes = props.indexes
-      console.log(indexes);
-      indexes[e] = f;
-      console.log("Indexes Updated: ", indexes);
-      socket.emit("index_change", indexes)
+      const temp_indexes = props.temp_indexes
+      console.log(temp_indexes);
+      temp_indexes[e] = f;
+      console.log("Temp_Indexes Updated: ", temp_indexes);
+      socket.emit("temp_index_change", temp_indexes)
     }
   
     return(
       <div>
         <Dropdown>
           <Dropdown.Toggle variant="secondary" id="dropdown-basic" size="sm">
-            Sensor {disp_index +1}
+            Sensor {disp_temp_index +1}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={(e, f) => handleUpdate(props.sensor, 0)}>1</Dropdown.Item>
@@ -31,4 +31,4 @@ function SetIndex (props) {
     );
   };
 
-  export default SetIndex;
+  export default Set_Temp_Index;
