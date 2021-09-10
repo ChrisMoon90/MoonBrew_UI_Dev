@@ -1,21 +1,28 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container';
+/* import Container from 'react-bootstrap/Container';
+import { Link } from 'react-router-dom'; */
+import {LinkContainer} from 'react-router-bootstrap'
+
 
 function Header () {
     return(
-      <header className="App-header">
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand href="#home">SmokerPi</Navbar.Brand>
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#chart">Chart</Nav.Link>
-              <Nav.Link href="#settings">Settings</Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
-      </header>
+      <Navbar bg="dark" variant="dark">
+        <LinkContainer to="/">
+          <Navbar.Brand>SmokerPi</Navbar.Brand>
+        </LinkContainer>
+        <Nav className="links">
+          <LinkContainer to="/">
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/chart">
+            <Nav.Link>Chart</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/settings">
+            <Nav.Link>Settings</Nav.Link>
+          </LinkContainer>
+        </Nav>
+      </Navbar>
     );
 };
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
-import Card from 'react-bootstrap/Card';
 
 import Set_Fan_Index from './FanIndexUpdater';
 import { socket } from '../App';
 
 
-function FanTable() {
+function FanTableSet() {
   const [fan_indexes, set_fan_indexes] = useState("");
   const [fan_states, set_fan_states] = useState("");
 
@@ -33,15 +32,15 @@ function FanTable() {
   //const Temp3 = temps[s2_index];
 
   return(
-    <Card border="dark">
-      <Card.Header><h3>Fan Controls</h3></Card.Header>
-      <Card.Body>
+      <div className="fantableset">
+        <h2>Fan Settings</h2>
         <Table striped bordered hover>              
             <thead>
                 <tr>
                 <th>#</th>
                 <th>Fan Name</th>
-                <th>Toggle State</th>
+                <th>Fan Select</th>
+                <th>Fan State</th>
                 </tr>
             </thead>
             <tbody>      
@@ -49,22 +48,24 @@ function FanTable() {
                 <td>1</td>
                 <td>Heating Fan</td>
                 <td><Set_Fan_Index fanID = "f0" fan_indexes = {fan_indexes}/></td>
+                <td>{f0_index}</td>
                 </tr>
                 <tr>
                 <td>2</td>
                 <td>Convection Fan</td>
-                <td>double buttons</td>
+                <td><Set_Fan_Index fanID = "f1" fan_indexes = {fan_indexes}/></td> 
+                <td>{f1_index}</td>
                 </tr>          
                 <tr>
                 <td>3</td>
                 <td>Pi Fan</td>
+                <td><Set_Fan_Index fanID = "f2" fan_indexes = {fan_indexes}/></td>
                 <td>{f2_index}</td>
                 </tr>
             </tbody>
         </Table>
-      </Card.Body>
-    </Card>
+      </div>
   )
 }
 
-export default FanTable;
+export default FanTableSet;
