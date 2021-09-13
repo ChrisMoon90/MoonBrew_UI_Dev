@@ -15,6 +15,7 @@ import FanTableSet from './components/FanTableSet';
 import TempTableSet from './components/TempTableSet';
 
 
+
 const ENDPOINT = "http://192.168.0.31:5000";
 const socket = socketio.connect(ENDPOINT);
 export { socket };

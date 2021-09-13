@@ -10,7 +10,7 @@ function Set_Fan_Index (props) {
     function handleUpdate(e, f) {
         const fan_indexes = props.fan_indexes
         fan_indexes[e] = f;
-        console.log("Fan_Indexes Updated: ", fan_indexes);
+        // console.log("Fan_Indexes Updated: ", fan_indexes);
         socket.emit("fan_index_change", fan_indexes)
       }
     

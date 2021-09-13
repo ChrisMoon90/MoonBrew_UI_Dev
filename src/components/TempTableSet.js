@@ -23,6 +23,7 @@ function TempTableSet() {
       if (isMounted) {
         set_temp_indexes(temp_indexes_in);
         console.log("Temp_Indexes Received: ", temp_indexes_in);
+        socket.emit("fetch_temps");
       }
     });
     socket.on("newtemps", temp_data => {
