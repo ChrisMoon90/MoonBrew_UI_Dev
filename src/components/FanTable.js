@@ -4,27 +4,36 @@ import Card from 'react-bootstrap/Card';
 
 import { socket } from '../App';
 import FanStateButtons from './FanButtons';
+import AutoButton from './AutoButton.js';
 
 
 function FanTable() {
-  let isMounted = true;
   const [FanState, setFanState] = useState("");
   const [fan_indexes, set_fan_indexes] = useState("");
+  const [auto_state, set_auto_state] = useState("");
 
   useEffect(() => {
-    socket.emit("fetch_fan_indexes")
+    let isMounted = true;
+    socket.emit("fetch_fan_indexes");
     socket.emit("fetch_fan_states");
+    socket.emit('fetch_auto_state');
 
     socket.on("fan_states", FanState => {
         if (isMounted) {
             setFanState(FanState);
-            console.log("FanState Updated: ", FanState);
+            console.log("FanStates Reveived: ", FanState);
         }
     });
     socket.on("fan_indexes", fan_indexes_in => {
       if (isMounted) {
         set_fan_indexes(fan_indexes_in);
         console.log("Fan_IndexesSet Received: ", fan_indexes_in)
+      }
+    });
+    socket.on("auto_state", auto_state_in => {
+      if (isMounted) {
+        set_auto_state(auto_state_in);
+        console.log("AutoState Received: ", auto_state_in)
       }
     });
     return () => { 
@@ -49,7 +58,7 @@ function FanTable() {
                 <tr>
                 <td>1</td>
                 <td>Heating Fan</td>
-                <td><FanStateButtons fanID = {fan_indexes['f0']} fan_states = {FanState} /></td>
+                <td><AutoButton fanID = {fan_indexes['f0']}  auto_state = {auto_state} fan_states = {FanState} /></td>
                 </tr>
                 <tr>
                 <td>2</td>

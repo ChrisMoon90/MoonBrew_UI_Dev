@@ -3,7 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { socket } from '../App';
 
-function Set_Temp_Index (props) { 
+function SetTempIndex (props) { 
   const temp_indexes = props.temp_indexes;
   const disp_temp_index = temp_indexes[props.sensor];
 
@@ -31,4 +31,4 @@ function Set_Temp_Index (props) {
     );
   };
 
-  export default Set_Temp_Index;
+  export default SetTempIndex;

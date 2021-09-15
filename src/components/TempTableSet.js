@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 
-import Set_Temp_Index from './TempIndexUpdater';
+import SetTempIndex from './TempIndexUpdater';
 import { socket } from '../App';
 
 
@@ -56,19 +56,19 @@ function TempTableSet() {
               <tr>
               <td>1</td>
               <td>Smoker Temp</td>
-              <td><Set_Temp_Index sensor = "s0" temp_indexes = {temp_indexes}/></td>
+              <td><SetTempIndex sensor = "s0" temp_indexes = {temp_indexes}/></td>
               <td>{Temp1 + " \xB0F"}</td>
               </tr>
               <tr>
               <td>2</td>
               <td>Meat Temp 1</td>
-              <td><Set_Temp_Index sensor = "s1" temp_indexes = {temp_indexes} /></td> 
+              <td><SetTempIndex sensor = "s1" temp_indexes = {temp_indexes} /></td> 
               <td>{Temp2 + " \xB0F"}</td>
               </tr>          
               <tr>
               <td>3</td>
               <td>Meat Temp 2</td>
-              <td><Set_Temp_Index sensor = "s2" temp_indexes = {temp_indexes} /></td>
+              <td><SetTempIndex sensor = "s2" temp_indexes = {temp_indexes} /></td>
               <td>{Temp3 + " \xB0F"}</td>
               </tr>
           </tbody>

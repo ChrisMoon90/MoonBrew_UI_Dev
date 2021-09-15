@@ -3,7 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { socket } from '../App';
 
-function Set_Fan_Index (props) { 
+function SetFanIndex (props) { 
     const fan_indexes = props.fan_indexes;
     const disp_fan_index = fan_indexes[props.fanID];
   
@@ -30,4 +30,4 @@ function Set_Fan_Index (props) {
       );
     };
   
-    export default Set_Fan_Index;
+    export default SetFanIndex;

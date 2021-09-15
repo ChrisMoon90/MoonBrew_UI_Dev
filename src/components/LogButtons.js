@@ -5,12 +5,11 @@ import Button from 'react-bootstrap/Button';
 import { socket } from '../App';
 
 function LogButtons() {
-    let isMounted = true
     socket.emit("fetch_log_state");
-
     const [logState, setLogState] = useState("");
 
     useEffect(() => {
+        let isMounted = true
         socket.on("logState", logState => {
             if (isMounted) {
                 setLogState(logState);
@@ -32,7 +31,7 @@ function LogButtons() {
     if (cur_logState) {
         Button_read = <Button variant="warning" onClick={() => toggleLogState()}>Stop Logging</Button>;
       } else {
-        Button_read = <Button variant="success" onClick={() => toggleLogState()}>Start Logging</Button>;
+        Button_read = <Button variant="secondary" onClick={() => toggleLogState()}>Start Logging</Button>;
       }
 
     function deleteLog() {
