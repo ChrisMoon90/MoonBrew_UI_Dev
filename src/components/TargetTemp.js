@@ -1,9 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 
+
 import { socket } from '../App';
 
-function FanStateButtons(props) {
+function TargetTemp(props) {
     let fanID = props.fanID
     let FanState = props.fan_states
 
@@ -20,9 +21,10 @@ function FanStateButtons(props) {
         Button_read = <Button variant="success" onClick={() => toggleFanState("OFF")}>PWR</Button>;
       }
 
+
     return(
         <div>{Button_read}</div>
     )
 }
 
-export default FanStateButtons;
+export default TargetTemp;

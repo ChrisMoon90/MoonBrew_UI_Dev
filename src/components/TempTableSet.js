@@ -32,12 +32,10 @@ function TempTableSet() {
         console.log("TempsSet Received: ", temp_data);
       }
     });
-
     return () => { 
       console.log('Unmounted TempTableSet');
       isMounted = false;
     }; 
-
   }, []);
 
   return(

@@ -4,13 +4,20 @@ import Button from 'react-bootstrap/Button';
 
 import { socket } from '../App';
 
-function LogButtons() {
-    socket.emit("fetch_log_state");
+function LogButtons(props) {
     const [logState, setLogState] = useState("");
 
     useEffect(() => {
         let isMounted = true
-        socket.on("logState", logState => {
+        socket.emit("fetch_log_state")
+
+        socket.on("fetched_logState", logState => {
+            if (isMounted) {
+                setLogState(logState);
+                console.log("Fetched LogState Updated: ", logState);
+            }
+        });     
+        socket.on("logState", logState => {       
             if (isMounted) {
                 setLogState(logState);
                 console.log("LogState Updated: ", logState);
@@ -19,9 +26,10 @@ function LogButtons() {
         return () => { 
             console.log('Unmounted LogButtons');
             isMounted = false;
-        }; 
-    }, []);
-    
+            }; 
+      }, []);
+
+
     function toggleLogState() {
         socket.emit('toggle_logState', logState);
     }
@@ -36,7 +44,6 @@ function LogButtons() {
 
     function deleteLog() {
         socket.emit('delete_log');
-
     }
 
     return(

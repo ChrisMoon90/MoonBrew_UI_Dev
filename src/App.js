@@ -15,19 +15,25 @@ import FanTableSet from './components/FanTableSet';
 import TempTableSet from './components/TempTableSet';
 
 
-
 const ENDPOINT = "http://192.168.0.31:5000";
 const socket = socketio.connect(ENDPOINT);
 export { socket };
 
 
-
 function App() {
 
   useEffect(() => {
+    let isMounted = true
+    
     socket.on("connect", msg => {
-      console.log("Connect to socket.io server!")
+      if (isMounted) {
+        console.log("Connect to socket.io server!")  
+      }   
     });
+    return () => { 
+        console.log('Unmounted Home');
+        isMounted = false;
+    }; 
   }, []);
 
   return (
@@ -51,8 +57,6 @@ function App() {
                 <FanTableSet />
               </Route>
             </Switch>
-          </div>
-          <div className="Alerts">
             <NewAlert />
           </div>
         </div>

@@ -14,7 +14,6 @@ function AutoButton(props) {
         socket.emit('toggle_auto_state');
     } 
 
-    // let cur_FanState = FanState[fanID]
     let Button_read;
     if (AutoState === false) {
         Button_read = <Button variant="secondary" onClick={() => toggleAutoState()}>AUTO</Button>;
