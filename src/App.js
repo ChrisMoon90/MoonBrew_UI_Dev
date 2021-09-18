@@ -13,6 +13,7 @@ import LogButtons from './components/LogButtons';
 import NewAlert from './components/Alert';
 import FanTableSet from './components/FanTableSet';
 import TempTableSet from './components/TempTableSet';
+import TempControlTable from './components/TempControlTable';
 
 
 const ENDPOINT = "http://192.168.0.31:5000";
@@ -54,6 +55,7 @@ function App() {
               </Route>
               <Route path="/settings">
                 <TempTableSet />
+                <TempControlTable />
                 <FanTableSet />
               </Route>
             </Switch>
