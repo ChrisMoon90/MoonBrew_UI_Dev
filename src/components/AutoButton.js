@@ -16,10 +16,10 @@ function AutoButton(props) {
 
     let Button_read;
     if (AutoState === false) {
-        Button_read = <Button variant="secondary" onClick={() => toggleAutoState()}>AUTO</Button>;
+        Button_read = <Button size="sm" variant="secondary" onClick={() => toggleAutoState()}>AUTO</Button>;
       } 
     else {
-        Button_read = <Button variant="success" onClick={() => toggleAutoState()}>AUTO</Button>;
+        Button_read = <Button size="sm" variant="success" onClick={() => toggleAutoState()}>AUTO</Button>;
       }
 
     return(

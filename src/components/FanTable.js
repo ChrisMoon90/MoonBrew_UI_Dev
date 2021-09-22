@@ -70,11 +70,11 @@ function FanTable() {
                   <td>Heating Fan</td>
                   <td>
                   <Container fluid>
-                    <Row>
-                      <Col ><AutoButton fanID = {fan_indexes['f0']}  auto_state = {auto_state} fan_states = {FanState} /></Col>
+                    <Row md="auto">
+                      <Col md="auto"><AutoButton fanID = {fan_indexes['f0']}  auto_state = {auto_state} fan_states = {FanState} /></Col>
                       <Col md="auto">
-                        <Row><small>Target Temp:</small></Row>
-                        <Row><small><strong>{tar_temp}</strong></small></Row>
+                        <Row md="auto"><small>Target Temp:</small></Row>
+                        <Row ><small><strong>{tar_temp}</strong></small></Row>
                       </Col>
                     </Row>
                   </Container>

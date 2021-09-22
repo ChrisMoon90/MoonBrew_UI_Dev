@@ -14,10 +14,10 @@ function FanStateButtons(props) {
     let cur_FanState = FanState[fanID]
     let Button_read;
     if (cur_FanState === "OFF") {
-        Button_read = <Button variant="secondary" onClick={() => toggleFanState("ON")}>PWR</Button>;
+        Button_read = <Button size="sm" variant="secondary" onClick={() => toggleFanState("ON")}>PWR</Button>;
       } 
     else {
-        Button_read = <Button variant="success" onClick={() => toggleFanState("OFF")}>PWR</Button>;
+        Button_read = <Button size="sm" variant="success" onClick={() => toggleFanState("OFF")}>PWR</Button>;
       }
 
     return(
