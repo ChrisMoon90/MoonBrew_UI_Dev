@@ -14,11 +14,12 @@ import NewAlert from './components/Alert';
 import FanTableSet from './components/FanTableSet';
 import TempTableSet from './components/TempTableSet';
 import TempControlTable from './components/TempControlTable';
-
+import HighChart from './components/Highchart';
+import Timer from './components/Timer';
 
 const ENDPOINT = "http://192.168.0.31:5000";
 const socket = socketio.connect(ENDPOINT);
-export { socket };
+export { socket, ENDPOINT };
 
 
 function App() {
@@ -51,7 +52,15 @@ function App() {
                     <Col><FanTable /></Col>
                   </Row>
                 </Container>
+                <Container>
                 <LogButtons />
+                <Timer />
+                </Container>
+              </Route>
+              <Route exact path="/chart">
+                <Container fluid>
+                  <HighChart />
+                </Container>
               </Route>
               <Route path="/settings">
                 <TempTableSet />

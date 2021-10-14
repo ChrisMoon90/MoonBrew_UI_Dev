@@ -21,6 +21,12 @@ function LogButtons(props) {
             if (isMounted) {
                 setLogState(logState);
                 console.log("LogState Updated: ", logState);
+                if (logState) {
+                    socket.emit("start_timer")
+                }
+                else {
+                    socket.emit("reset_timer")
+                }
             }
         });
         return () => { 
@@ -37,9 +43,9 @@ function LogButtons(props) {
     let cur_logState = logState
     let Button_read;
     if (cur_logState) {
-        Button_read = <Button variant="warning" onClick={() => toggleLogState()}>Stop Cook</Button>;
+        Button_read = <Button variant="warning" onClick={() => { if (window.confirm('Are you sure you want to stop & reset the cook?')) toggleLogState() } }>Stop Cook</Button>;
       } else {
-        Button_read = <Button variant="secondary" onClick={() => toggleLogState()}>Start Cook</Button>;
+        Button_read = <Button variant="secondary" onClick={() => toggleLogState() }>Start Cook</Button>;
       }
 
     function deleteLog() {

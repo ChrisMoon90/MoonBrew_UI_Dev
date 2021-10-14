@@ -21,6 +21,7 @@ function TempTol() {
         });
         return () => { 
           isMounted = false;
+          console.log("Unmounted TempTol")
         };
       }, []);
 

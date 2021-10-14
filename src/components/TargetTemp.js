@@ -22,6 +22,7 @@ function TargetTemp() {
     });
     return () => { 
       isMounted = false;
+      console.log("Unmouted TargetTemp")
     };
   }, []);
 
