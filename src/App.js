@@ -16,6 +16,7 @@ import TempTableSet from './components/TempTableSet';
 import TempControlTable from './components/TempControlTable';
 import HighChart from './components/Highchart';
 import Timer from './components/Timer';
+import ModeSet from './components/ModeSet';
 
 const ENDPOINT = "http://192.168.0.31:5000";
 const socket = socketio.connect(ENDPOINT);
@@ -29,9 +30,14 @@ function App() {
     
     socket.on("connect", msg => {
       if (isMounted) {
-        console.log("Connect to socket.io server!")  
-      }   
-    });
+        console.log("Connected to socket.io server!")
+        socket.emit('connected')
+        socket.emit('get_cache')
+      }});
+    socket.on("cache", cache => {
+      if (isMounted) {
+        console.log(JSON.stringify(cache))
+      }});
     return () => { 
         console.log('Unmounted Home');
         isMounted = false;
@@ -63,6 +69,7 @@ function App() {
                 </Container>
               </Route>
               <Route path="/settings">
+                <ModeSet />
                 <TempTableSet />
                 <TempControlTable />
                 <FanTableSet />
