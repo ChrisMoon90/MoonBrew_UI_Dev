@@ -1,13 +1,15 @@
-// import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { socket } from '../App';
 
 
 function ModeSet(props) {
-  const mode = 'Brew' //props.temp_indexes;
-
-  function handleUpdate(e) {
-      const mode = e
+  var cache = props.cache
+  var mode = ''
+  try {mode = cache['SYSTEM']['Mode']}
+  catch(err){mode = ''}
+  
+  function handleUpdate(m) {
+      var mode = m
       console.log("Mode Updated: ", mode);
       socket.emit("mode_change", mode)
     }
@@ -20,9 +22,9 @@ return(
             {mode}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={(e) => handleUpdate('Brew')}>Brew</Dropdown.Item>
-            <Dropdown.Item onClick={(e) => handleUpdate('Ferment')}>Ferment</Dropdown.Item>
-            <Dropdown.Item onClick={(e) => handleUpdate('Smoke')}>Smoke</Dropdown.Item>
+            <Dropdown.Item onClick={(m) => handleUpdate('Brew')}>Brew</Dropdown.Item>
+            <Dropdown.Item onClick={(m) => handleUpdate('Ferment')}>Ferment</Dropdown.Item>
+            <Dropdown.Item onClick={(m) => handleUpdate('Smoke')}>Smoke</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <h4><br></br></h4>

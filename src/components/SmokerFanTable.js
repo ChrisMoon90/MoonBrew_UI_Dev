@@ -9,7 +9,7 @@ import FanStateButtons from './FanButtons';
 import AutoButton from './AutoButton.js';
 
 
-function FanTable() {
+function SmokerFanTable() {
   const [FanState, setFanState] = useState("");
   const [fan_indexes, set_fan_indexes] = useState("");
   const [auto_state, set_auto_state] = useState("");
@@ -97,4 +97,4 @@ function FanTable() {
   )
 }
 
-export default FanTable;
+export default SmokerFanTable;

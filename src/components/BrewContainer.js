@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import { socket } from '../App';
 
 
-function TempTable() {
+function BrewContainer() {
   const [temps, setTemps] = useState("");
   const [temp_indexes, set_temp_indexes] = useState("");
 
@@ -42,7 +42,7 @@ function TempTable() {
  
   return(
     <Card border="dark">
-      <Card.Header><h3>Temperatures</h3></Card.Header>
+      <Card.Header><h3>Brewing</h3></Card.Header>
       <Card.Body>
         <Table striped bordered hover>              
             <thead>
@@ -75,4 +75,4 @@ function TempTable() {
   )
 }
 
-export default TempTable;
+export default BrewContainer;
