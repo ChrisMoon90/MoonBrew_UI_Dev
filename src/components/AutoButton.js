@@ -3,19 +3,29 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 import { socket } from '../App';
-import FanStateButtons from './FanButtons';
+import PowerButton from './PowerButton';
 
 function AutoButton(props) {
-    let fanID = props.fanID
-    let AutoState = props.auto_state
-    let FanState = props.fan_states
+    let vessel = props.vessel
+    let hwID = props.hwID
+    let cache
+    let hw_index
+    let power_state
+    let auto_state
+    try {
+        cache = props.cache
+        hw_index = props.cache['VESSELS'][vessel]['indexes'][hwID]
+        power_state = props.cache['HARDWARE'][hw_index]['state']
+        auto_state = props.cache['VESSELS'][vessel]['auto_state']
+        console.log('auto_state: ', auto_state)
+    } catch(err){}
 
     function toggleAutoState() {
-        socket.emit('toggle_auto_state');
+        socket.emit('toggle_auto_state')
     } 
 
     let Button_read;
-    if (AutoState === false) {
+    if (auto_state === "OFF") {
         Button_read = <Button size="sm" variant="secondary" onClick={() => toggleAutoState()}>AUTO</Button>;
       } 
     else {
@@ -26,7 +36,7 @@ function AutoButton(props) {
         <div>
             <ButtonGroup aria-label="Basic example">
                 <div>{Button_read}</div>
-                <div><FanStateButtons fanID = {fanID} fan_states = {FanState}/></div>
+                <div><PowerButton vessel = 'Smoker' hwID = {hwID} cache = {cache}/></div>
             </ButtonGroup>
         </div>
     )

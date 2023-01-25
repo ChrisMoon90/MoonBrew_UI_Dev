@@ -9,8 +9,8 @@ import { Row, Col } from 'react-bootstrap';
 import Header from './components/Header';
 import BrewContainer from './components/BrewContainer';
 import FermContainer from './components/FermContainer';
-import SmokerTempTable from './components/SmokerTempTable';
-import SmokerFanTable from './components/SmokerFanTable';
+// import SmokerTempTable from './components/SmokerTempTable';
+import SmokerContainer from './components/SmokerContainer';
 import LogButtons from './components/LogButtons';
 import NewAlert from './components/Alert';
 import FanTableSet from './components/FanTableSet';
@@ -28,9 +28,12 @@ export { socket, ENDPOINT };
 
 function App() {
   const [cache, set_cache] = useState("");
-  var mode = ''
-  try {mode = cache['SYSTEM']['Mode']}
-  catch(err){mode = ''}
+  const [mode, set_mode] = useState("");
+  // var mode = ''
+  // try {
+  //   console.log('Trying to Load Cache...')
+  //   // mode = cache['SYSTEM']['Mode']}
+  // catch(err){console.log('Failed to Load Cache')}
 
   useEffect(() => {
     let isMounted = true
@@ -45,6 +48,7 @@ function App() {
       if (isMounted) {
         console.log(JSON.stringify(cache))
         set_cache(cache);
+        set_mode(cache['SYSTEM']['Mode'])
       }});
     return () => { 
         console.log('Unmounted Home');
@@ -54,11 +58,7 @@ function App() {
 
   var home
   if (mode === 'Brew') {
-    home = <Container fluid>
-    <Row>
-      <Col><BrewContainer /></Col>
-    </Row>
-  </Container>;
+    home = <Container fluid><BrewContainer cache = {cache}/></Container>;
   } else if (mode === 'Ferment') {
     home = <Container fluid>
     <Row>
@@ -68,8 +68,7 @@ function App() {
   } else {
     home = <Container fluid>
     <Row>
-      <Col><SmokerTempTable /></Col>
-      <Col><SmokerFanTable /></Col>
+      <Col><SmokerContainer cache = {cache}/></Col>
     </Row>
   </Container>;
   }

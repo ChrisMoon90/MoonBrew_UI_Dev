@@ -6,7 +6,7 @@ function ModeSet(props) {
   var cache = props.cache
   var mode = ''
   try {mode = cache['SYSTEM']['Mode']}
-  catch(err){mode = ''}
+  catch(err){}
   
   function handleUpdate(m) {
       var mode = m
