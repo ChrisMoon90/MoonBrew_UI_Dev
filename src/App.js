@@ -4,17 +4,15 @@ import React, { useState, useEffect } from 'react';
 import socketio from "socket.io-client";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Container from 'react-bootstrap/Container'
-import { Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap'
 
 import Header from './components/Header';
-import BrewContainer from './components/BrewContainer';
-import FermContainer from './components/FermContainer';
 // import SmokerTempTable from './components/SmokerTempTable';
-import SmokerContainer from './components/SmokerContainer';
+import VesselContainer from './components/VesselContainer';
 import LogButtons from './components/LogButtons';
 import NewAlert from './components/Alert';
 import FanTableSet from './components/FanTableSet';
-import TempTableSet from './components/TempTableSet';
+import VesselSetting from './components/VesselSetting';
 import TempControlTable from './components/TempControlTable';
 import HighChart from './components/Highchart';
 import Timer from './components/Timer';
@@ -29,11 +27,6 @@ export { socket, ENDPOINT };
 function App() {
   const [cache, set_cache] = useState("");
   const [mode, set_mode] = useState("");
-  // var mode = ''
-  // try {
-  //   console.log('Trying to Load Cache...')
-  //   // mode = cache['SYSTEM']['Mode']}
-  // catch(err){console.log('Failed to Load Cache')}
 
   useEffect(() => {
     let isMounted = true
@@ -46,7 +39,7 @@ function App() {
       }});
     socket.on("cache", cache => {
       if (isMounted) {
-        console.log(JSON.stringify(cache))
+        // console.log(JSON.stringify(cache))
         set_cache(cache);
         set_mode(cache['SYSTEM']['Mode'])
       }});
@@ -56,22 +49,16 @@ function App() {
     }; 
   }, []);
 
-  var home
-  if (mode === 'Brew') {
-    home = <Container fluid><BrewContainer cache = {cache}/></Container>;
-  } else if (mode === 'Ferment') {
-    home = <Container fluid>
-    <Row>
-      <Col><FermContainer /></Col>
-    </Row>
-  </Container>;
-  } else {
-    home = <Container fluid>
-    <Row>
-      <Col><SmokerContainer cache = {cache}/></Col>
-    </Row>
-  </Container>;
-  }
+  let home
+  try {
+    if (mode === 'Smoke') {
+      home = <VesselContainer vessel_name = 'Smoker' cache = {cache}/>} 
+    else if (mode === 'Brew') {
+      home = [<VesselContainer key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
+              <VesselContainer key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
+              <VesselContainer key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}
+    else if (mode === 'Ferment') {home = <VesselContainer vessel_name = 'Fermenter' cache = {cache}/>}
+  } catch(err){console.log('Failed to Load Vessel')}
 
   return (
     <React.Fragment>
@@ -81,11 +68,13 @@ function App() {
           <div className="content">
             <Switch>
               <Route exact path="/">
-                {home}
-                <Container>
+              <Container fluid>
+                <Row>
+                  {home}
+                </Row>
+              </Container>
                 <LogButtons />
                 <Timer />
-                </Container>
               </Route>
               <Route exact path="/chart">
                 <Container fluid>
@@ -94,7 +83,7 @@ function App() {
               </Route>
               <Route path="/settings">
                 <ModeSet cache = {cache} />
-                <TempTableSet />
+                <VesselSetting key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>
                 <TempControlTable />
                 <FanTableSet />
               </Route>

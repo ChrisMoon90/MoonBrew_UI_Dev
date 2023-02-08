@@ -9,28 +9,20 @@ function AutoButton(props) {
     let vessel = props.vessel
     let hwID = props.hwID
     let cache
-    let hw_index
-    let power_state
     let auto_state
     try {
         cache = props.cache
-        hw_index = props.cache['VESSELS'][vessel]['indexes'][hwID]
-        power_state = props.cache['HARDWARE'][hw_index]['state']
         auto_state = props.cache['VESSELS'][vessel]['auto_state']
-        console.log('auto_state: ', auto_state)
-    } catch(err){}
+    } catch(err){console.log("Failed to Load AutoButton")}
 
     function toggleAutoState() {
-        socket.emit('toggle_auto_state')
-    } 
+        socket.emit('toggle_auto_state')} 
 
     let Button_read;
     if (auto_state === "OFF") {
-        Button_read = <Button size="sm" variant="secondary" onClick={() => toggleAutoState()}>AUTO</Button>;
-      } 
+        Button_read = <Button size="sm" variant="secondary" onClick={() => toggleAutoState()}>AUTO</Button>} 
     else {
-        Button_read = <Button size="sm" variant="success" onClick={() => toggleAutoState()}>AUTO</Button>;
-      }
+        Button_read = <Button size="sm" variant="success" onClick={() => toggleAutoState()}>AUTO</Button>}
 
     return(
         <div>

@@ -4,7 +4,6 @@ import {LinkContainer} from 'react-router-bootstrap'
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 
-
 function Header () {
   var [date,setDate] = useState(new Date());
  
@@ -20,7 +19,7 @@ function Header () {
     // <div>
     <Navbar collapseOnSelect bg="dark" variant="dark" expand="md">
       <Container fluid bg="light" className="mr-auto">
-        <Navbar.Brand >SmokerPi</Navbar.Brand>
+        <Navbar.Brand >MoonBrewCo.</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="me-auto">       
