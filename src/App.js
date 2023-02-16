@@ -41,7 +41,7 @@ function App() {
       if (isMounted) {
         // console.log(JSON.stringify(cache))
         set_cache(cache);
-        set_mode(cache['SYSTEM']['Mode'])
+        set_mode(cache['SYSTEM']['Static']['Mode'])
       }});
     return () => { 
         console.log('Unmounted Home');

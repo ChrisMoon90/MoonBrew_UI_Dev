@@ -3,15 +3,19 @@ import { socket } from '../App';
 
 
 function ModeSet(props) {
-  var cache = props.cache
-  var mode = ''
-  try {mode = cache['SYSTEM']['Mode']}
-  catch(err){}
+  // var cache = props.cache
+  let mode
+  let s_dict
+  try {    
+    mode = props.cache['SYSTEM']['Static']['Mode']
+    s_dict = props.cache['SYSTEM']
+  }
+  catch(err){console.log('Failed to Load ModeSet')}
   
   function handleUpdate(m) {
-      var mode = m
-      console.log("Mode Updated: ", mode);
-      socket.emit("mode_change", mode)
+      s_dict['Static']['Mode'] = m
+      console.log("System Settings Updated: ", s_dict);
+      socket.emit("system_update", s_dict)
     }
 
 return(
