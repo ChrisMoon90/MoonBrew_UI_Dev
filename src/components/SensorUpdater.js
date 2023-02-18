@@ -22,7 +22,7 @@ function SensorUpdater (props) {
     return(
       <div>
         <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic" size="sm">
+          <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">
             Sensor {index + 1}
           </Dropdown.Toggle>
           <Dropdown.Menu>

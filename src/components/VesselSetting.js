@@ -1,11 +1,10 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container'
-import { Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
 import SensorUpdater from './SensorUpdater';
-// import SensorUpdater from './SensorUpdater';
+import NameUpdater from './NameUpdater';
 
 
 function VesselSetting(props) {
@@ -33,17 +32,59 @@ function VesselSetting(props) {
   } catch(err){console.log('Failed to Load VesselSetting Props')}
 
   return(
-    <Card border="dark" style={{ width: '20rem' }}>
-      <Card.Header style={{fontSize: 20}}>{title}</Card.Header>
-      <Card.Body>
-        <Container fluid>
-          <Table striped bordered hover size='sm' variant="dark">              
+    <>
+      <style type="text/css">
+            {`
+        .set-title {
+          color: white;    
+        }
+        .set-cont {
+          background-color: #707070;
+        }
+        `}
+      </style>
+      <Container className="square rounded-3 border border-dark border-3 set-cont">
+        <Row className="set-title"><center><h2 class="display-6">{title}</h2></center></Row>
+        <Row>
+          <Table striped bordered hover size='sm' variant='dark'>          
             <thead>
                 <tr>
                 <th>#</th>
                 <th>Sensor Name</th>
                 <th>Sensor Select</th>
                 <th>Current Value</th>
+                </tr>
+            </thead>
+            <tbody>      
+                <tr>
+                <td>1</td>
+                <td>{s0_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id='1' v_dict = {v_dict}/></td>
+                <td><SensorUpdater vessel = {vessel_name} sensor = '1' v_dict = {v_dict}/></td>
+                <td>{s0 + " \xB0F"}</td>
+                </tr>
+                <tr>
+                <td>2</td>
+                <td>{s1_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id='2' v_dict = {v_dict}/></td>
+                <td><SensorUpdater vessel = {vessel_name} sensor = '2' v_dict = {v_dict}/></td> 
+                <td>{s1 + " \xB0F"}</td>
+                </tr>          
+                <tr>
+                <td>3</td>
+                <td>{s2_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id='3' v_dict = {v_dict}/></td>
+                <td><SensorUpdater vessel = {vessel_name} sensor = '3' v_dict = {v_dict}/></td>
+                <td>{s2 + " \xB0F"}</td>
+                </tr>
+            </tbody>
+          </Table>
+        </Row>
+        <Row>
+          <Table striped bordered hover size='sm' variant='dark'>          
+            <thead>
+                <tr>
+                <th>#</th>
+                <th>Actor Name</th>
+                <th>Actor Select</th>
+                <th>Current State</th>
                 </tr>
             </thead>
             <tbody>      
@@ -59,17 +100,12 @@ function VesselSetting(props) {
                 <td><SensorUpdater vessel = {vessel_name} sensor = '2' v_dict = {v_dict}/></td> 
                 <td>{s1 + " \xB0F"}</td>
                 </tr>          
-                <tr>
-                <td>3</td>
-                <td>{s2_name}</td>
-                <td><SensorUpdater vessel = {vessel_name} sensor = '3' v_dict = {v_dict}/></td>
-                <td>{s2 + " \xB0F"}</td>
-                </tr>
             </tbody>
           </Table>
-        </Container>
-      </Card.Body>
-    </Card>
+        </Row>
+      </Container>
+      <br></br>
+    </>
   )
 }
 
