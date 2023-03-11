@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container'
 import { Row } from 'react-bootstrap'
 
 import Header from './components/Header';
-// import SmokerTempTable from './components/SmokerTempTable';
 import VesselContainer from './components/VesselContainer';
 import LogButtons from './components/LogButtons';
 import NewAlert from './components/Alert';
@@ -19,7 +18,7 @@ import Timer from './components/Timer';
 import ModeSet from './components/ModeSet';
 
 // const ENDPOINT = "http://192.168.0.31:5000";
-const ENDPOINT = "http://98.51.132.233:81";
+const ENDPOINT = "http://174.160.237.133:81/";
 const socket = socketio.connect(ENDPOINT);
 export { socket, ENDPOINT };
 
@@ -84,6 +83,10 @@ function App() {
               <Route path="/settings">
                 <ModeSet cache = {cache} />
                 <VesselSetting key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>
+                <VesselSetting key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>
+                <VesselSetting key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>
+                <VesselSetting key = '4' vessel_name = 'Fermenter' cache = {cache}/>
+                <VesselSetting key = '5' vessel_name = 'Smoker' cache = {cache}/>
                 <TempControlTable />
                 <FanTableSet />
               </Route>

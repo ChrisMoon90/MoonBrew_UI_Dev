@@ -3,18 +3,19 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { socket } from '../App';
 
-function SensorUpdater (props) { 
+function IndexUpdater (props) { 
   let vessel = props.vessel
-  let sensor = props.sensor
+  let hw_id = props.hw_id
+  let hw_type = props.hw_type
   let v_dict
   let index
   try {
     v_dict = props.v_dict
-    index = v_dict['Sensors'][sensor]['index']
-  } catch(err){console.log('Failed to Load SensorUpdater Props')}
+    index = v_dict[hw_type + "s"][hw_id]['index']
+  } catch(err){console.log('Failed to Load IndexUpdater Props')}
 
   function handleUpdate(f) {
-      v_dict['Sensors'][sensor]['index'] = f
+      v_dict[hw_type + "s"][hw_id]['index'] = f
       console.log("v_dict updated on ", vessel, ": ", v_dict);
       socket.emit("vessel_update", vessel, v_dict)
     }
@@ -23,7 +24,7 @@ function SensorUpdater (props) {
       <div>
         <Dropdown>
           <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">
-            Sensor {index + 1}
+            {hw_type} {index + 1}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={(f) => handleUpdate(0)}>1</Dropdown.Item>
@@ -35,4 +36,4 @@ function SensorUpdater (props) {
     );
   };
 
-  export default SensorUpdater;
+  export default IndexUpdater;

@@ -36,7 +36,7 @@ function ModeSet(props) {
       </style>
       <br></br>
       <Container className="square rounded-3 border border-dark border-3 set-cont">
-        <Row className="set-title"><center><h2 class="display-6">System Settings</h2></center></Row>
+        <Row className="set-title"><center><h2 className="display-6">System Settings</h2></center></Row>
         <Row>
           <Table striped bordered hover size='sm' variant='dark'>          
             <thead>
