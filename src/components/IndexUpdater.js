@@ -9,10 +9,12 @@ function IndexUpdater (props) {
   let hw_type = props.hw_type
   let v_dict
   let index
+  let dev_list
   try {
     v_dict = props.v_dict
     index = v_dict[hw_type + "s"][hw_id]['index']
-  } catch(err){console.log('Failed to Load IndexUpdater Props')}
+    dev_list = props.dev_list
+  } catch(err){console.log('Failed to Load Index Updater Props')}
 
   function handleUpdate(f) {
       v_dict[hw_type + "s"][hw_id]['index'] = f
@@ -27,9 +29,10 @@ function IndexUpdater (props) {
             {hw_type} {index + 1}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={(f) => handleUpdate(0)}>1</Dropdown.Item>
-            <Dropdown.Item onClick={(f) => handleUpdate(1)}>2</Dropdown.Item>
-            <Dropdown.Item onClick={(f) => handleUpdate(2)}>3</Dropdown.Item>
+            <Dropdown.Item onClick={(f) => handleUpdate('None')}>None</Dropdown.Item>
+            <Dropdown.Item onClick={(f) => handleUpdate(0)}>{dev_list[0]}</Dropdown.Item>
+            <Dropdown.Item onClick={(f) => handleUpdate(1)}>{dev_list[1]}</Dropdown.Item>
+            <Dropdown.Item onClick={(f) => handleUpdate(2)}>{dev_list[2]}</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </div>
