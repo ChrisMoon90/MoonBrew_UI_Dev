@@ -17,8 +17,8 @@ import HighChart from './components/Highchart';
 import Timer from './components/Timer';
 import ModeSet from './components/ModeSet';
 
-// const ENDPOINT = "http://192.168.0.31:5000";
-const ENDPOINT = "http://174.160.237.133:81/";
+const ENDPOINT = "http://192.168.0.31:5000";
+// const ENDPOINT = "http://174.160.237.133:81/";
 const socket = socketio.connect(ENDPOINT);
 export { socket, ENDPOINT };
 
