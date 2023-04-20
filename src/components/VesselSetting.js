@@ -11,7 +11,6 @@ import ParamUpdater from './ParamUpdater';
 function VesselSetting(props) {
   let vessel_name = props.vessel_name
   let title = props.vessel_name.replace(/_/g,' ')
-  let cache
   let tar_temp
   let temp_tol
   let s0
@@ -24,14 +23,15 @@ function VesselSetting(props) {
   let h0_state
   let h1_name
   let h1_state
+  let cache
   let v_dict
-  let s_list = []
-  let a_list = ['Actor 1', 'Actor 2']
+  let sensors
+  let actors
   try {
     cache = props.cache
-    for (let key in cache['SENSORS']) {
-      s_list.push(cache['SENSORS'][key]['type'] + ' ' + key)}
-    // console.log('s_list: ' + s_list)
+    sensors = cache['SENSORS']
+    actors = cache['ACTORS']
+    v_dict = props.cache['VESSELS'][vessel_name]
     if (cache['VESSELS'][vessel_name]['Sensors'][1]['index'] === 'None') {s0_name = ''; s0 = ''} 
       else {s0_name = cache['VESSELS'][vessel_name]['Sensors'][1]['name'];
             s0 = cache['SENSORS'][cache['VESSELS'][vessel_name]['Sensors'][1]['index']]['cur_temp']}
@@ -43,14 +43,12 @@ function VesselSetting(props) {
             s2 = cache['SENSORS'][cache['VESSELS'][vessel_name]['Sensors'][3]['index']]['cur_temp']}
     if (cache['VESSELS'][vessel_name]['Actors'][1]['index'] === 'None') {h0_name = ''; h0_state = ''}
       else {h0_name = cache['VESSELS'][vessel_name]['Actors'][1]['name'];
-            h0_state = cache['HARDWARE'][cache['VESSELS'][vessel_name]['Actors'][1]['index']]['state']}
-   if (cache['VESSELS'][vessel_name]['Actors'][2]['index'] === 'None') {h1_name = ''; h1_state = ''}
-    else {h1_name = cache['VESSELS'][vessel_name]['Actors'][2]['name'];
-          h1_state = cache['HARDWARE'][cache['VESSELS'][vessel_name]['Actors'][2]['index']]['state']}
-
+            h0_state = cache['ACTORS'][cache['VESSELS'][vessel_name]['Actors'][1]['index']]['state']}
+    if (cache['VESSELS'][vessel_name]['Actors'][2]['index'] === 'None') {h1_name = ''; h1_state = ''}
+      else {h1_name = cache['VESSELS'][vessel_name]['Actors'][2]['name'];
+            h1_state = cache['ACTORS'][cache['VESSELS'][vessel_name]['Actors'][2]['index']]['state']}
     tar_temp = props.cache['VESSELS'][vessel_name]['Params']['tar_temp']
     temp_tol = props.cache['VESSELS'][vessel_name]['Params']['temp_tol']
-    v_dict = props.cache['VESSELS'][vessel_name]
   } catch(err){console.log('Failed to Load VesselSetting Props')}
 
   return(
@@ -81,19 +79,19 @@ function VesselSetting(props) {
                 <tr>
                 <td>1</td>
                 <td>{s0_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id='1' v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' dev_list = {s_list} hw_id = '1' v_dict = {v_dict}/></td>
+                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = '1' v_dict = {v_dict}/></td>
                 <td>{s0 + " \xB0F"}</td>
                 </tr>
                 <tr>
                 <td>2</td>
                 <td>{s1_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id='2' v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' dev_list = {s_list} hw_id = '2' v_dict = {v_dict}/></td> 
+                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = '2' v_dict = {v_dict}/></td> 
                 <td>{s1 + " \xB0F"}</td>
                 </tr>          
                 <tr>
                 <td>3</td>
                 <td>{s2_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id='3' v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' dev_list = {s_list} hw_id = '3' v_dict = {v_dict}/></td>
+                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = '3' v_dict = {v_dict}/></td>
                 <td>{s2 + " \xB0F"}</td>
                 </tr>
             </tbody>
@@ -113,13 +111,13 @@ function VesselSetting(props) {
                 <tr>
                 <td>1</td>
                 <td>{h0_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id='1' v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' dev_list = {a_list} hw_id = '1' v_dict = {v_dict}/></td>
+                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = '1' v_dict = {v_dict}/></td>
                 <td>{h0_state}</td>
                 </tr>
                 <tr>
                 <td>2</td>
                 <td>{h1_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id='2' v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' dev_list = {a_list} hw_id = '2' v_dict = {v_dict}/></td> 
+                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = '2' v_dict = {v_dict}/></td> 
                 <td>{h1_state}</td>
                 </tr>          
             </tbody>

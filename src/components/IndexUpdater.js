@@ -8,31 +8,36 @@ function IndexUpdater (props) {
   let hw_id = props.hw_id
   let hw_type = props.hw_type
   let v_dict
+  let devs
   let index
-  let dev_list
+  let active_dev
   try {
     v_dict = props.v_dict
+    devs = props.devs
     index = v_dict[hw_type + "s"][hw_id]['index']
-    dev_list = props.dev_list
-  } catch(err){console.log('Failed to Load Index Updater Props')}
+    active_dev = devs[index]['dev_id']
+    } catch(err){console.log('Failed to Load Index Updater Props')
+  }
 
   function handleUpdate(f) {
-      v_dict[hw_type + "s"][hw_id]['index'] = f
-      console.log("v_dict updated on ", vessel, ": ", v_dict);
-      socket.emit("vessel_update", vessel, v_dict)
-    }
-  
+    v_dict[hw_type + "s"][hw_id]['index'] = f
+    console.log("v_dict updated on ", vessel, ": ", v_dict);
+    socket.emit("vessel_update", vessel, v_dict)
+  }
+
+  let dropdown = []
+  for (let key in devs) {
+    dropdown.push(<Dropdown.Item key = {key} onClick={(f) => handleUpdate(key)}>{devs[key]['dev_id']}</Dropdown.Item>)
+  }
+
     return(
       <div>
         <Dropdown>
           <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">
-            {hw_type} {index + 1}
+            {active_dev}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={(f) => handleUpdate('None')}>None</Dropdown.Item>
-            <Dropdown.Item onClick={(f) => handleUpdate(0)}>{dev_list[0]}</Dropdown.Item>
-            <Dropdown.Item onClick={(f) => handleUpdate(1)}>{dev_list[1]}</Dropdown.Item>
-            <Dropdown.Item onClick={(f) => handleUpdate(2)}>{dev_list[2]}</Dropdown.Item>
+            {dropdown}
           </Dropdown.Menu>
         </Dropdown>
       </div>
