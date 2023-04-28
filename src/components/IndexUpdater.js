@@ -16,11 +16,12 @@ function IndexUpdater (props) {
     devs = props.devs
     index = v_dict[hw_type + "s"][hw_id]['index']
     active_dev = devs[index]['dev_id']
-    } catch(err){console.log('Failed to Load Index Updater Props')
-  }
+    } catch(err){}
 
   function handleUpdate(f) {
-    v_dict[hw_type + "s"][hw_id]['index'] = f
+    console.log('hw_id: ' + hw_id)
+    console.log(typeof(hw_id))
+    v_dict[hw_type + "s"][+hw_id]['index'] = f
     console.log("v_dict updated on ", vessel, ": ", v_dict);
     socket.emit("vessel_update", vessel, v_dict)
   }

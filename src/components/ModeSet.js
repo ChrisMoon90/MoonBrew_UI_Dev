@@ -14,7 +14,7 @@ function ModeSet(props) {
     mode = props.cache['SYSTEM']['Static']['Mode']
     s_dict = props.cache['SYSTEM']
   }
-  catch(err){console.log('Failed to Load ModeSet')}
+  catch(err){}
   
   function handleUpdate(m) {
       s_dict['Static']['Mode'] = m
