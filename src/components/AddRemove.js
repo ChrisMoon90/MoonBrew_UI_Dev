@@ -10,7 +10,7 @@ function AddRemove(props) {
     let hw_type = props.hw_type
 
     function add_rm_hardware(f) {
-        console.log("add_rm: " + f)
+        console.log(vessel + ": " + f + " " + hw_type)
         socket.emit("add_rm_hardware", f, vessel, String(hw_type + 's'))}
 
     return (

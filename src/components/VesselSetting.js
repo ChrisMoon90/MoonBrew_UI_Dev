@@ -14,16 +14,6 @@ function VesselSetting(props) {
   let title = props.vessel_name.replace(/_/g,' ')
   let tar_temp
   let temp_tol
-  let s0
-  let s0_name
-  let s1
-  let s1_name
-  let s2
-  let s2_name
-  let h0_name
-  let h0_state
-  let h1_name
-  let h1_state
   let cache
   let v_dict
   let sensors
@@ -32,26 +22,46 @@ function VesselSetting(props) {
     cache = props.cache
     sensors = cache['SENSORS']
     actors = cache['ACTORS']
-    v_dict = props.cache['VESSELS'][vessel_name]
-    tar_temp = props.cache['VESSELS'][vessel_name]['Params']['tar_temp']
-    temp_tol = props.cache['VESSELS'][vessel_name]['Params']['temp_tol']
+    v_dict = cache['VESSELS'][vessel_name]
+    tar_temp = v_dict['Params']['tar_temp']
+    temp_tol = v_dict['Params']['temp_tol']
   } catch(err){}
 
-  try {
-    h0_name = cache['VESSELS'][vessel_name]['Actors'][0]['name']
-    h0_state = cache['ACTORS'][cache['VESSELS'][vessel_name]['Actors'][0]['index']]['state']
-    h1_name = cache['VESSELS'][vessel_name]['Actors'][1]['name']
-    h1_state = cache['ACTORS'][cache['VESSELS'][vessel_name]['Actors'][1]['index']]['state']
-  } catch(err){}
+  let s_rows = []
+  for (let key in v_dict['Sensors']) {
+    let num = Number(key) + 1
+    let s_name = v_dict['Sensors'][key]['name'];
+    let s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
+    let com_type = cache['SENSORS'][v_dict['Sensors'][key]['index']]['com_type']
+    let unit
+    let sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_id']
+    if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
+    else {unit = " SG"}
+    s_rows.push(
+      <tr key = {key}>
+        <td>{num}</td>
+        <td>{s_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
+        <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = {key} v_dict = {v_dict}/></td>
+        <td>{com_type}</td>
+        <td>{s_read}{unit}</td>
+      </tr>
+    )
+  }
 
-  try {
-    s0_name = cache['VESSELS'][vessel_name]['Sensors'][0]['name'];
-    s0 = cache['SENSORS'][cache['VESSELS'][vessel_name]['Sensors'][0]['index']]['cur_temp']
-    s1_name = cache['VESSELS'][vessel_name]['Sensors'][1]['name'];
-    s1 = cache['SENSORS'][cache['VESSELS'][vessel_name]['Sensors'][1]['index']]['cur_temp']
-    s2_name = cache['VESSELS'][vessel_name]['Sensors'][2]['name'];
-    s2 = cache['SENSORS'][cache['VESSELS'][vessel_name]['Sensors'][2]['index']]['cur_temp']
-  } catch(err){}
+  let a_rows = []
+  for (let key in v_dict['Actors']) {
+    let num = Number(key) + 1
+    let a_name = v_dict['Actors'][key]['name'];
+    let a_state = cache['ACTORS'][v_dict['Actors'][key]['index']]['state']
+    a_rows.push(
+      <tr key = {key}>
+        <td>{num}</td>
+        <td>{a_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
+        <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = {key} v_dict = {v_dict}/></td>
+        <td>{a_state}</td>
+      </tr>
+    )
+  }
 
   return(
     <>
@@ -72,31 +82,15 @@ function VesselSetting(props) {
           <Table striped bordered hover size='sm' variant='dark'>          
             <thead>
                 <tr>
-                <th>#</th>
-                <th>Sensor Name</th>
-                <th>Sensor Select</th>
-                <th>Current Value</th>
+                  <th>#</th>
+                  <th>Sensor Name</th>
+                  <th>Sensor Select</th>
+                  <th>Com Type</th>
+                  <th>Current Value</th>
                 </tr>
             </thead>
             <tbody>      
-                <tr>
-                <td>1</td>
-                <td>{s0_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id = {0} v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = {0} v_dict = {v_dict}/></td>
-                <td>{s0 + " \xB0F"}</td>
-                </tr>
-                <tr>
-                <td>2</td>
-                <td>{s1_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id={1} v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = {1} v_dict = {v_dict}/></td> 
-                <td>{s1 + " \xB0F"}</td>
-                </tr>          
-                <tr>
-                <td>3</td>
-                <td>{s2_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id = {2} v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = {2} v_dict = {v_dict}/></td>
-                <td>{s2 + " \xB0F"}</td>
-                </tr>
+                {s_rows}
             </tbody>
           </Table>
         </Row>
@@ -104,26 +98,15 @@ function VesselSetting(props) {
         <Row>
           <Table striped bordered hover size='sm' variant='dark'>          
             <thead>
-                <tr>
-                <th>#</th>
-                <th>Actor Name</th>
-                <th>Actor Select</th>
-                <th>Current State</th>
+                 <tr>
+                  <th>#</th>
+                  <th>Actor Name</th>
+                  <th>Actor Select</th>
+                  <th>Current State</th>
                 </tr>
             </thead>
             <tbody>      
-                <tr>
-                <td>1</td>
-                <td>{h0_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id = {0} v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = {0} v_dict = {v_dict}/></td>
-                <td>{h0_state}</td>
-                </tr>
-                <tr>
-                <td>2</td>
-                <td>{h1_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id = {1} v_dict = {v_dict}/></td>
-                <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = {1} v_dict = {v_dict}/></td> 
-                <td>{h1_state}</td>
-                </tr>          
+                {a_rows}
             </tbody>
           </Table>
         </Row>
@@ -131,18 +114,18 @@ function VesselSetting(props) {
           <Table striped bordered hover size='sm' variant='dark'>   
             <thead>
                 <tr>
-                <th>Setting</th>
-                <th>Value</th>
+                  <th>Setting</th>
+                  <th>Value</th>
                 </tr>
             </thead>       
             <tbody>      
                 <tr>
-                <td>Target Temp</td>
-                <td>{tar_temp} <ParamUpdater param_type = 'tar_temp' vessel = {vessel_name} v_dict = {v_dict}/></td>
+                  <td>Target Temp</td>
+                  <td>{tar_temp} <ParamUpdater param_type = 'tar_temp' vessel = {vessel_name} v_dict = {v_dict}/></td>
                 </tr>
                 <tr>
-                <td>Temp Tollerance</td>
-                <td>{temp_tol} <ParamUpdater param_type = 'temp_tol' vessel = {vessel_name} v_dict = {v_dict}/></td>
+                  <td>Temp Tollerance</td>
+                  <td>{temp_tol} <ParamUpdater param_type = 'temp_tol' vessel = {vessel_name} v_dict = {v_dict}/></td>
                 </tr>          
             </tbody>
           </Table>
