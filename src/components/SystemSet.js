@@ -4,15 +4,16 @@ import Table from 'react-bootstrap/Table';
 import { Row } from 'react-bootstrap';
 
 import { socket } from '../App';
+import Slider from './Slider'
 
 
-function ModeSet(props) {
-  // var cache = props.cache
+function SystemSet(props) {
+  var cache = props.cache
   let mode
   let s_dict
   try {
-    mode = props.cache['SYSTEM']['Static']['Mode']
-    s_dict = props.cache['SYSTEM']
+    mode = cache['SYSTEM']['Static']['Mode']
+    s_dict = cache['SYSTEM']
   }
   catch(err){}
   
@@ -45,7 +46,7 @@ function ModeSet(props) {
                   <th>Setting</th>
                 </tr>
             </thead>
-            <tbody>      
+            <tbody>   
               <tr>
                 <td>Mode</td>
                 <td>
@@ -60,9 +61,12 @@ function ModeSet(props) {
                     </Dropdown.Menu>
                   </Dropdown>
                 </td>
-              </tr>               
+              </tr> 
             </tbody>
           </Table>
+        </Row>
+        <Row>
+        <Slider  cache = {cache} min = {1} max = {60} inc = {1}/>
         </Row>
       </Container>
       <br></br>
@@ -70,4 +74,4 @@ function ModeSet(props) {
   );
 }
 
-export default ModeSet;
+export default SystemSet;

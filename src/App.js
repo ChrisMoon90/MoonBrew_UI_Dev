@@ -13,7 +13,7 @@ import NewAlert from './components/Alert';
 import VesselSetting from './components/VesselSetting';
 import HighChart from './components/Highchart';
 import Timer from './components/Timer';
-import ModeSet from './components/ModeSet';
+import SystemSet from './components/SystemSet';
 
 // const ENDPOINT = "http://192.168.0.31:5000";
 const ENDPOINT = "http://174.160.237.133:81/";
@@ -84,7 +84,7 @@ function App() {
                 </Container>
               </Route>
               <Route path="/settings">
-                <ModeSet cache = {cache} />
+                <SystemSet cache = {cache} />
                 {settings}
               </Route>
             </Switch>
