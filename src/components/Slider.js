@@ -40,9 +40,9 @@ function Slider(props) {
         <Form.Range
           value={cur_val}
           onChange = {e => {setCurVal(e.target.value); send_val(e.target.value, s_dict)}}
-          min={1}
-          max={60}
-          step={1}
+          min={props.min}
+          max={props.max}
+          step={props.step}
         />
       </Col>
       <Col xs="3">

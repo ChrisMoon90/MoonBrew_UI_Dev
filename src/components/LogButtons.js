@@ -1,51 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 
 import { socket } from '../App';
 
 function LogButtons(props) {
-    const [logState, setLogState] = useState("");
-
-    useEffect(() => {
-        let isMounted = true
-        socket.emit("fetch_log_state")
-
-        socket.on("fetched_logState", logState => {
-            if (isMounted) {
-                setLogState(logState);
-                console.log("Fetched LogState Updated: ", logState);
-            }
-        });     
-        socket.on("logState", logState => {       
-            if (isMounted) {
-                setLogState(logState);
-                console.log("LogState Updated: ", logState);
-                if (logState) {
-                    socket.emit("start_timer")
-                }
-                else {
-                    socket.emit("reset_timer")
-                }
-            }
-        });
-        return () => { 
-            console.log('Unmounted LogButtons');
-            isMounted = false;
-            }; 
-      }, []);
-
+    let s_dict = ''
+    let log_state = ''
+  
+    try {
+      s_dict = props.cache['SYSTEM']
+      log_state = s_dict['Dynamic']['log_state']
+    }
+    catch(err) {}
 
     function toggleLogState() {
-        socket.emit('toggle_logState', logState);
+        log_state = !log_state
+        console.log('log_state update: ',log_state)
+        s_dict['Dynamic']['log_state'] = log_state
+        socket.emit('set_log_state', s_dict)
     }
 
-    let cur_logState = logState
-    let Button_read;
-    if (cur_logState) {
-        Button_read = <Button variant="warning" onClick={() => { if (window.confirm('Are you sure you want to stop & reset the cook?')) toggleLogState() } }>Stop Cook</Button>;
+    let Button_read
+    if (log_state) {
+        Button_read = <Button variant="warning" onClick={() => { if (window.confirm('Are you sure you want to stop logging?')) toggleLogState() } }>Stop Log</Button>;
       } else {
-        Button_read = <Button variant="secondary" onClick={() => toggleLogState() }>Start Cook</Button>;
+        Button_read = <Button variant="secondary" onClick={() => toggleLogState() }>Start Log</Button>;
       }
 
     function deleteLog() {

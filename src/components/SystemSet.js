@@ -66,7 +66,7 @@ function SystemSet(props) {
           </Table>
         </Row>
         <Row>
-        <Slider  cache = {cache} min = {1} max = {60} inc = {1}/>
+        <Slider  cache = {cache} min = {0.5} max = {30} step = {0.5}/>
         </Row>
       </Container>
       <br></br>

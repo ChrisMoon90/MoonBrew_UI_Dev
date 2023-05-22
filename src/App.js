@@ -75,7 +75,7 @@ function App() {
                   {home}
                 </Row>
               </Container>
-                <LogButtons />
+                <LogButtons cache = {cache}/>
                 <Timer />
               </Route>
               <Route exact path="/chart">
