@@ -18,13 +18,13 @@ function ActorButtons(props) {
     let p_buttons = []
     let btn
     for (let key in v_dict['Actors']) {
-        let a_name = v_dict['Actors'][key]['name']
+        let a_name = v_dict['Actors'][key]['name']       
         let a_state = cache['ACTORS'][v_dict['Actors'][key]['index']]['state']
         if (a_state === false) {
-            btn = <Button key = {key} size="sm" variant="secondary" onClick={() => toggleState()}>{a_name}</Button>
+            btn = <Button key = {key} size="sm" variant="secondary" onClick={() => toggleState(key, a_state)}>{a_name}</Button>
         } 
         else {
-            btn = <Button key = {key} size="sm" variant="success" onClick={() => toggleState()}>{a_name}</Button>
+            btn = <Button key = {key} size="sm" variant="success" onClick={() => toggleState(key, a_state)}>{a_name}</Button>
         }
         p_buttons.push(btn)
     }
@@ -37,11 +37,16 @@ function ActorButtons(props) {
         auto_btn = <Button size="sm" variant="success" onClick={() => toggleAutoState()}>AUTO</Button>
     }
 
-    function toggleState(power_state) {
-        socket.emit('toggle_power_state', power_state)
+    function toggleState(key, a_state) {
+        let a_dict = cache['ACTORS'][key]
+        a_dict['state'] = !a_state
+        console.log('a_dict updated: ', a_dict)
+        socket.emit('hw_update', key, a_dict)
     } 
     function toggleAutoState() {
-        socket.emit('toggle_auto_state')
+        v_dict['Params']['auto_state'] = !auto_state
+        console.log('auto_state updated: ', v_dict)
+        socket.emit('vessel_update', vessel, v_dict)
     } 
 
     return(
