@@ -18,13 +18,14 @@ function ActorButtons(props) {
     let p_buttons = []
     let btn
     for (let key in v_dict['Actors']) {
-        let a_name = v_dict['Actors'][key]['name']       
-        let a_state = cache['ACTORS'][v_dict['Actors'][key]['index']]['state']
+        let a_name = v_dict['Actors'][key]['name']
+        let index = v_dict['Actors'][key]['index']
+        let a_state = cache['ACTORS'][index]['state']
         if (a_state === false) {
-            btn = <Button key = {key} size="sm" variant="secondary" onClick={() => toggleState(key, a_state)}>{a_name}</Button>
+            btn = <Button key = {key} size="sm" variant="secondary" onClick={() => toggleState(index, a_state)}>{a_name}</Button>
         } 
         else {
-            btn = <Button key = {key} size="sm" variant="success" onClick={() => toggleState(key, a_state)}>{a_name}</Button>
+            btn = <Button key = {key} size="sm" variant="success" onClick={() => toggleState(index, a_state)}>{a_name}</Button>
         }
         p_buttons.push(btn)
     }
@@ -37,11 +38,11 @@ function ActorButtons(props) {
         auto_btn = <Button size="sm" variant="success" onClick={() => toggleAutoState()}>AUTO</Button>
     }
 
-    function toggleState(key, a_state) {
-        let a_dict = cache['ACTORS'][key]
+    function toggleState(index, a_state) {
+        let a_dict = cache['ACTORS'][index]
         a_dict['state'] = !a_state
         console.log('a_dict updated: ', a_dict)
-        socket.emit('hw_update', key, a_dict)
+        socket.emit('hw_update', index, a_dict)
     } 
     function toggleAutoState() {
         v_dict['Params']['auto_state'] = !auto_state
