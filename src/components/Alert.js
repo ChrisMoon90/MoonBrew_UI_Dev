@@ -9,18 +9,14 @@ function NewAlert() {
     useEffect(() => {
       let isMounted = true;
       
-      socket.on("logState", logState => {
+      socket.on("alert_success", msg => {
         if (isMounted) {
-          if (logState) {
-          toast.success('Logging Active');
-          } else {
-            toast.warn('Logging Inactive');
-          }
+          toast.success(msg);
         }
       });
-      socket.on("log_deleted", msg => {
+      socket.on('alert_warn', msg => {
         if (isMounted) {
-          toast.success('Log Deleted');
+          toast.warn(msg);
         }
       });
       return () => { 
@@ -32,7 +28,7 @@ function NewAlert() {
     <div>
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={true}
@@ -45,6 +41,5 @@ function NewAlert() {
     </div>
   );
 }
-
 
   export default NewAlert;

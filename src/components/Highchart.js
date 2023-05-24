@@ -14,7 +14,7 @@ function HighChart() {
             type: 'spline'
         },
         title: {
-            text: 'Smoker Temp Data'
+            text: 'Sensor Data'
         },
         data: {
             // csvURL: 'https://demo-live-data.highcharts.com/time-data.csv',
