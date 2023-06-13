@@ -15,7 +15,7 @@ function IndexUpdater (props) {
     v_dict = props.v_dict
     devs = props.devs
     index = v_dict[hw_type + "s"][hw_id]['index']
-    active_dev = devs[index]['dev_id']
+    active_dev = devs[index]['dev_name']
     } catch(err){}
 
   function handleUpdate(f) {
@@ -28,7 +28,7 @@ function IndexUpdater (props) {
 
   let dropdown = []
   for (let key in devs) {
-    dropdown.push(<Dropdown.Item key = {key} onClick={(f) => handleUpdate(key)}>{devs[key]['dev_id']}</Dropdown.Item>)
+    dropdown.push(<Dropdown.Item key = {key} onClick={(f) => handleUpdate(key)}>{devs[key]['dev_name']}</Dropdown.Item>)
   }
 
     return(

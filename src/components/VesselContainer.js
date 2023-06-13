@@ -22,7 +22,7 @@ function VesselContainer(props) {
     let s_name = v_dict['Sensors'][key]['name'];
     let s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
     let unit
-    let sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_id']
+    let sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
     if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
     else {unit = " SG"}
     if (key === '0') {

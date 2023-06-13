@@ -34,7 +34,7 @@ function VesselSetting(props) {
     let s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
     let com_type = cache['SENSORS'][v_dict['Sensors'][key]['index']]['com_type']
     let unit
-    let sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_id']
+    let sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
     if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
     else {unit = " SG"}
     s_rows.push(
@@ -53,12 +53,14 @@ function VesselSetting(props) {
     let num = Number(key) + 1
     let a_name = v_dict['Actors'][key]['name'];
     let a_state = cache['ACTORS'][v_dict['Actors'][key]['index']]['state']
+    let state_read
+    if (a_state === false) {state_read = "OFF"} else {state_read = "ON"}
     a_rows.push(
       <tr key = {key}>
         <td>{num}</td>
         <td>{a_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
         <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = {key} v_dict = {v_dict}/></td>
-        <td>{a_state}</td>
+        <td>{state_read}</td>
       </tr>
     )
   }
