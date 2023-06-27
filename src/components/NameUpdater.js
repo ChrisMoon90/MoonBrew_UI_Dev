@@ -19,7 +19,8 @@ function NameUpdater(props) {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  function handleUpdate() {
+  const handleUpdate = e => {
+    e.preventDefault()
     setShow(false)
     v_dict[hw_type + "s"][hw_id]['name'] = name
     console.log("v_dict updated on ", vessel, ": ", v_dict);
@@ -31,7 +32,7 @@ function NameUpdater(props) {
       <Button variant="primary" onClick={handleShow} size="sm">
         Edit
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} onSubmit={handleUpdate}>
         <Modal.Header closeButton>
           <Modal.Title>Rename {hw_type} {hw_id}</Modal.Title>
         </Modal.Header>
@@ -52,7 +53,7 @@ function NameUpdater(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit" onClick={(f) => handleUpdate()}>
+          <Button variant="primary" type="submit">
             Save Changes
           </Button>
         </Modal.Footer>

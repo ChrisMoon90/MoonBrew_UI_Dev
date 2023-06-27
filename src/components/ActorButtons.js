@@ -8,11 +8,13 @@ function ActorButtons(props) {
     let vessel = props.vessel
     let cache
     let v_dict
+    let s_dict
     let auto_state
     try {
         cache = props.cache
         v_dict = props.v_dict
-        auto_state = v_dict['Params']['auto_state']
+        s_dict = props.cache['SYSTEM']
+        auto_state = s_dict['AutoStates'][vessel]
     } catch(err){}
 
     let p_buttons = []
@@ -45,9 +47,9 @@ function ActorButtons(props) {
         socket.emit('hw_update', index, a_dict)
     } 
     function toggleAutoState() {
-        v_dict['Params']['auto_state'] = !auto_state
-        console.log('auto_state updated: ', v_dict)
-        socket.emit('vessel_update', vessel, v_dict)
+        s_dict['AutoStates'][vessel] = !auto_state
+        console.log('auto_state updated: ', s_dict)
+        socket.emit('system_update', s_dict)
     } 
 
     return(
