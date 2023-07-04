@@ -53,7 +53,7 @@ function NameUpdater(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={handleUpdate}>
             Save Changes
           </Button>
         </Modal.Footer>
