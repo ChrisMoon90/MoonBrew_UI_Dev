@@ -7,6 +7,7 @@ import IndexUpdater from './IndexUpdater';
 import NameUpdater from './NameUpdater';
 import ParamUpdater from './ParamUpdater';
 import AddRemove from './AddRemove'
+import ActorType from './ActorType';
 
 
 function VesselSetting(props) {
@@ -60,6 +61,7 @@ function VesselSetting(props) {
         <td>{num}</td>
         <td>{a_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
         <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = {key} v_dict = {v_dict}/></td>
+        <td><ActorType vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
         <td>{state_read}</td>
       </tr>
     )
@@ -104,6 +106,7 @@ function VesselSetting(props) {
                   <th>#</th>
                   <th>Actor Name</th>
                   <th>Actor Select</th>
+                  <th>Type</th>
                   <th>Current State</th>
                 </tr>
             </thead>
