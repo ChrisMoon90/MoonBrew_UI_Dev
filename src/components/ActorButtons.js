@@ -41,10 +41,11 @@ function ActorButtons(props) {
     }
 
     function toggleState(index, a_state) {
-        let a_dict = cache['ACTORS'][index]
-        a_dict['state'] = !a_state
+        let actor = cache['ACTORS'][index]
+        actor['state'] = !a_state
+        let a_dict = cache['ACTORS']
         console.log('a_dict updated: ', a_dict)
-        socket.emit('actor_update', index, a_dict)
+        socket.emit('actor_update', a_dict)
     } 
     function toggleAutoState() {
         s_dict['AutoStates'][vessel] = !auto_state
