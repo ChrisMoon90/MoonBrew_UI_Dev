@@ -29,18 +29,32 @@ function VesselSetting(props) {
   } catch(err){}
 
   let s_rows = []
+  let s_num
+  let s_name
+  let s_read
+  let com_type
+  let unit
+  let sval
   for (let key in v_dict['Sensors']) {
-    let num = Number(key) + 1
-    let s_name = v_dict['Sensors'][key]['name'];
-    let s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
-    let com_type = cache['SENSORS'][v_dict['Sensors'][key]['index']]['com_type']
-    let unit
-    let sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
-    if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
-    else {unit = " SG"}
+    try{
+      s_num = Number(key) + 1
+      s_name = v_dict['Sensors'][key]['name'];
+      s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
+      com_type = cache['SENSORS'][v_dict['Sensors'][key]['index']]['com_type']
+      sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
+      if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
+      else {unit = " SG"}
+  } catch(err) {
+    console.log('VesselSetting Error: key')
+    s_num = 'ERR'
+    s_name = 'ERR'
+    s_read = 'ERR'
+    com_type = 'ERR'
+    unit = ''
+  }
     s_rows.push(
       <tr key = {key}>
-        <td>{num}</td>
+        <td>{s_num}</td>
         <td>{s_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
         <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = {key} v_dict = {v_dict}/></td>
         <td>{com_type}</td>
@@ -50,15 +64,25 @@ function VesselSetting(props) {
   }
 
   let a_rows = []
+  let a_num
+  let a_name
+  let a_state
+  let state_read
   for (let key in v_dict['Actors']) {
-    let num = Number(key) + 1
-    let a_name = v_dict['Actors'][key]['name'];
-    let a_state = cache['ACTORS'][v_dict['Actors'][key]['index']]['state']
-    let state_read
-    if (a_state === false) {state_read = "OFF"} else {state_read = "ON"}
+    try{
+      a_num = Number(key) + 1
+      a_name = v_dict['Actors'][key]['name'];
+      a_state = cache['ACTORS'][v_dict['Actors'][key]['index']]['state']
+      if (a_state === false) {state_read = "OFF"} else {state_read = "ON"}
+    } catch(err) {
+      console.log('VesselSetting Error: key')
+      a_num = 'ERR'
+      a_name = 'ERR'
+      state_read = 'ERR'
+    }
     a_rows.push(
       <tr key = {key}>
-        <td>{num}</td>
+        <td>{a_num}</td>
         <td>{a_name} <NameUpdater hw_type = 'Actor' vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
         <td><IndexUpdater vessel = {vessel_name} hw_type = 'Actor' devs = {actors} hw_id = {key} v_dict = {v_dict}/></td>
         <td><ActorType vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>

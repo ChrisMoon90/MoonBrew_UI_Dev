@@ -18,13 +18,24 @@ function VesselContainer(props) {
   } catch(err){}
 
   let s_rows = []
+  let s_name
+  let s_read
+  let sval
+  let unit
   for (let key in v_dict['Sensors']) {
-    let s_name = v_dict['Sensors'][key]['name'];
-    let s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
-    let unit
-    let sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
-    if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
-    else {unit = " SG"}
+    try{
+      s_name = v_dict['Sensors'][key]['name'];
+      s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
+      sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
+      if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
+        else {unit = " SG"}
+    } catch(err){
+      console.log('VesselContainer Error: key')
+      s_name = 'ERR'
+      s_read = 'ERR'
+      unit = ''
+    }
+
     if (key === '0') {
       s_rows.push(
         <Row className="align-items-center">
