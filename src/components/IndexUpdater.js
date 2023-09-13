@@ -19,8 +19,6 @@ function IndexUpdater (props) {
     } catch(err){}
 
   function handleUpdate(f) {
-    console.log('hw_id: ' + hw_id)
-    console.log(typeof(hw_id))
     v_dict[hw_type + "s"][+hw_id]['index'] = f
     console.log("v_dict updated on ", vessel, ": ", v_dict);
     socket.emit("vessel_update", vessel, v_dict)

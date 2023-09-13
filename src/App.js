@@ -50,16 +50,21 @@ function App() {
   try {
     if (mode === 'Smoke') {
       home = <VesselContainer vessel_name = 'Smoker' cache = {cache}/>;
-      settings = <VesselSetting vessel_name = 'Smoker' cache = {cache}/>}
+      settings = [<SystemSet key = '1' cache = {cache}/>,
+                  <VesselSetting key = '2' vessel_name = 'Smoker' cache = {cache}/>]}
     else if (mode === 'Brew') {
       home = [<VesselContainer key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
               <VesselContainer key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
               <VesselContainer key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>];
-      settings = [<VesselSetting key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
-                  <VesselSetting key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
-                  <VesselSetting key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}          
+      settings = [<SystemSet key = '1' cache = {cache}/>,
+                  <VesselSetting key = '2' vessel_name = 'Boil_Kettle' cache = {cache}/>,
+                  <VesselSetting key = '3' vessel_name = 'Mash_Tun' cache = {cache}/>,
+                  <VesselSetting key = '4' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}          
     else if (mode === 'Ferment') {home = <VesselContainer vessel_name = 'Fermenter' cache = {cache}/>;
-                                  settings = <VesselSetting vessel_name = 'Fermenter' cache = {cache}/>}
+                                  settings = [<SystemSet key = '1' cache = {cache}/>,
+                                              <VesselSetting key = '2' vessel_name = 'Fermenter' cache = {cache}/>]}
+    else {home = 'Waiting for connection to server...';
+          settings = 'Waiting for connection to server...'}
   } catch(err){console.log('Failed to Load Vessel')}
 
   return (
@@ -84,7 +89,6 @@ function App() {
                 </Container>
               </Route>
               <Route path="/settings">
-                <SystemSet cache = {cache} />
                 {settings}
               </Route>
             </Switch>

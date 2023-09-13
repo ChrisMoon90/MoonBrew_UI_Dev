@@ -29,7 +29,7 @@ function Timer() {
         
         return () => { 
             isMounted = false;    
-            console.log('Unmounted Timer');      
+            // console.log('Unmounted Timer');      
         }; 
         // eslint-disable-next-line
     }, []); 
