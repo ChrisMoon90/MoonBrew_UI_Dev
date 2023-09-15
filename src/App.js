@@ -16,7 +16,7 @@ import Timer from './components/Timer';
 import SystemSet from './components/SystemSet';
 
 // const ENDPOINT = "http://192.168.0.31:5000";
-const ENDPOINT = "http://24.7.3.84:81/" // "http://174.160.237.133:81/";
+const ENDPOINT = "http://24.7.3.84:81"
 const socket = socketio.connect(ENDPOINT);
 export { socket, ENDPOINT };
 
@@ -30,12 +30,10 @@ function App() {
     socket.on("connect", msg => {
       if (isMounted) {
         console.log("Connected to socket.io server!")
-        socket.emit('connected')
-        // socket.emit('get_cache')
       }});
     socket.on("cache", cache => {
       if (isMounted) {
-        // console.log(JSON.stringify(cache))
+        console.log('Cache Received')
         set_cache(cache);
         set_mode(cache['SYSTEM']['Static']['Mode'])
       }});
@@ -84,7 +82,7 @@ function App() {
                 <Timer />
               </Route>
               <Route exact path="/chart">
-                <Container fluid>
+                <Container>
                   <HighChart />
                 </Container>
               </Route>
