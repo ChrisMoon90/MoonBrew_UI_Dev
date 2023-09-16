@@ -3,6 +3,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import highchartsData from 'highcharts/modules/data.js'
 import { ENDPOINT } from '../App'
+
 require("highcharts/modules/exporting")(Highcharts)
 
 highchartsData(Highcharts);

@@ -19,6 +19,10 @@
   background-color: purple;
 }
 
+/* .vessel {
+  background: rgb(128,128,128) !important;
+} THIS WORKS!! */ 
+
 /* .TargetTemp {
   right: 50%;
   position: fixed;

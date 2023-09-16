@@ -82,9 +82,10 @@ function App() {
                 <Timer />
               </Route>
               <Route exact path="/chart">
-                <Container>
+                <Container fluid>
                   <HighChart />
                 </Container>
+                <LogButtons cache = {cache}/>
               </Route>
               <Route path="/settings">
                 {settings}

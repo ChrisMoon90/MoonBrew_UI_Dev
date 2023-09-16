@@ -61,7 +61,7 @@ function VesselContainer(props) {
   }
 
   return(
-    <Card border="dark" style={{ width: '20rem' }}>
+    <Card className="vessel" border="dark" style={{ width: '20rem' }}>
       <Card.Header style={{fontSize: 30}}>{title}</Card.Header>
       <Card.Body>
         <Container fluid>
