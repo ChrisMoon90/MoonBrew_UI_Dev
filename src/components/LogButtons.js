@@ -16,8 +16,12 @@ function LogButtons(props) {
 
     function toggleLogState() {
         log_state = !log_state
-        console.log('log_state update: ',log_state)
+        console.log('log_state update: ', log_state)
         s_dict['Dynamic']['log_state'] = log_state
+        if (log_state) {
+            s_dict['Dynamic']['timer_start'] = Date.now()
+            }
+        else {s_dict['Dynamic']['timer_start'] = 0}
         socket.emit('set_log_state', s_dict)
     }
 

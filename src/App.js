@@ -79,13 +79,14 @@ function App() {
                 </Row>
               </Container>
                 <LogButtons cache = {cache}/>
-                <Timer />
+                <Timer cache = {cache}/>
               </Route>
               <Route exact path="/chart">
                 <Container fluid>
                   <HighChart />
                 </Container>
                 <LogButtons cache = {cache}/>
+                <Timer cache = {cache}/>
               </Route>
               <Route path="/settings">
                 {settings}
