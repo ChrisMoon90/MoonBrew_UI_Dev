@@ -16,11 +16,8 @@ import Timer from './components/Timer'
 import SystemSet from './components/SystemSet'
 
 // const ENDPOINT = "http://192.168.0.31:5000"
-// const ENDPOINT = "http://24.7.3.84:80"
-// const socket = socketio.connect(ENDPOINT)
-// export { socket, ENDPOINT }
-// const ENDPOINT = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000'
-const ENDPOINT = window.location.origin
+const ENDPOINT = "http://24.7.3.84:80"
+// const ENDPOINT = window.location.origin
 console.log(ENDPOINT)
 export const socket = io(ENDPOINT)
 export {ENDPOINT}
@@ -88,7 +85,7 @@ function App() {
               </Route>
               <Route exact path="/chart">
                 <Container fluid>
-                  <HighChart />
+                  <HighChart cache = {cache}/>
                 </Container>
                 <LogButtons cache = {cache}/>
                 <Timer cache = {cache}/>
