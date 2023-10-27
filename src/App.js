@@ -16,8 +16,8 @@ import Timer from './components/Timer'
 import SystemSet from './components/SystemSet'
 
 // const ENDPOINT = "http://192.168.0.31:5000"
-const ENDPOINT = "http://24.7.3.84:80"
-// const ENDPOINT = window.location.origin
+// const ENDPOINT = "http://24.7.3.84:80"
+const ENDPOINT = window.location.origin
 console.log(ENDPOINT)
 export const socket = io(ENDPOINT)
 export {ENDPOINT}
@@ -80,12 +80,15 @@ function App() {
                   {home}
                 </Row>
               </Container>
+                <Container fluid>
+                  <HighChart cache = {cache} size = '35%'/>
+                </Container>
                 <LogButtons cache = {cache}/>
                 <Timer cache = {cache}/>
               </Route>
               <Route exact path="/chart">
                 <Container fluid>
-                  <HighChart cache = {cache}/>
+                  <HighChart cache = {cache} size = '50%'/>
                 </Container>
                 <LogButtons cache = {cache}/>
                 <Timer cache = {cache}/>

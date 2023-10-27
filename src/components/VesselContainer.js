@@ -30,7 +30,7 @@ function VesselContainer(props) {
       if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
         else {unit = " SG"}
     } catch(err){
-      console.log('VesselContainer Error: key')
+      console.log('VesselContainer Error: sensor missing key')
       s_name = 'ERR'
       s_read = 'ERR'
       unit = ''
@@ -39,9 +39,9 @@ function VesselContainer(props) {
     if (key === '0') {
       s_rows.push(
         <Row className="align-items-center">
-          <Col className="align-items-center">
+          <Col className = "align-items-center">
             <Row><center>{s_name}</center></Row>
-            <Row className= "align-items-top"  style={{height: 60, fontSize: 30}}><center>{s_read}{unit}</center></Row>
+            <Row className= "align-items-top"  style={{height: 45, fontSize: 28}}><center>{s_read}{unit}</center></Row>
           </Col>
           <Col className="align-items-center">
             <Row style={{fontSize: 12}}><center>Target Temp</center></Row>
@@ -62,9 +62,9 @@ function VesselContainer(props) {
 
   return(
     <Card className="vessel" border="dark" style={{ width: '20rem' }}>
-      <Card.Header style={{fontSize: 30}}>{title}</Card.Header>
-      <Card.Body>
-        <Container fluid>
+      <Card.Header className= "align-items-top" style={{padding: 2, height: 45, fontSize: 25}}>{title}</Card.Header>
+      <Card.Body className= "align-items-top" style={{padding: 2}}>
+        <Container >
           {s_rows[0]}
           <Row>
             {s_rows[1]}

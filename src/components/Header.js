@@ -16,10 +16,9 @@ function Header () {
   }, []);
 
   return(
-    // <div>
     <Navbar collapseOnSelect bg="dark" variant="dark" expand="md">
       <Container fluid bg="light" className="mr-auto">
-        <Navbar.Brand >MoonBrewCo.</Navbar.Brand>
+        <Navbar.Brand >MoonBrew&nbsp;<small><small><small>v0.1</small></small></small></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="me-auto">       
@@ -42,7 +41,6 @@ function Header () {
         </Navbar.Collapse>  
       </Container>
     </Navbar>
-    // </div>
   );
 };
 

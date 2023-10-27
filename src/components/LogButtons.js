@@ -38,7 +38,7 @@ function LogButtons(props) {
 
     return(
         <div>
-            <h1><br></br></h1>
+            
             <ButtonGroup aria-label="Basic example">
                 {Button_read}
                 <Button variant="danger" onClick={() => { if (window.confirm('Are you sure you wish to delete the log?')) deleteLog() } }>Delete Log</Button>

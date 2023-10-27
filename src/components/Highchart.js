@@ -12,6 +12,7 @@ const HighChart = (props) => {
 
     let locstring = ENDPOINT + '/data'
     let cache = props.cache
+    let size = props.size
     const [title, setTitle] = useState('')
     const [names, setNames] = useState('')
     const [types, setTypes] = useState('')
@@ -29,22 +30,20 @@ const HighChart = (props) => {
         let y0 = []
 
 
-        function ChartSettings(s) {
+        function ChartSettings(vessels) {
 
-            for (let k in s) {
-                let index = parseInt(s[k]['index'])
-                n0[index + 1] = s[k]['name']
-                console.log('n0: ', n0)
-
-                t0[index + 1] = cache['SENSORS'][index]['dev_name'].split(' ')[0]
-                console.log('t0: ', t0)
-            }
-                
-            for (let i in t0) {
-                if (t0[i] === null) {
-                    // do nothing
+            for (let x in vessels) {
+                let sensors = cache['VESSELS'][vessels[x]]['Sensors']
+                for (let k in sensors) {
+                    let index = parseInt(sensors[k]['index'])
+                    n0[index + 1] = sensors[k]['name']
+                    t0[index + 1] = cache['SENSORS'][index]['dev_name'].split(' ')[0]
                 }
-                else {
+            }
+
+            for (let i in t0) {
+                if (t0[i] != null) {
+
                     // TEMPERATURE SETTINGS
                     if(t0[i] === 'Temp') {
                         let s_add = {
@@ -148,31 +147,21 @@ const HighChart = (props) => {
 
             if (mode === 'Ferment') {
                 title0 = 'Fermentation'
-                let s = cache['VESSELS']['Fermenter']['Sensors']
-                ChartSettings(s)
+                ChartSettings(['Fermenter'])
             }
-
             else if (mode === 'Brew') {
                 title0 = 'Brew'
-                let s = cache['VESSELS']['Boil_Kettle']['Sensors']
-                ChartSettings(s)
-                s = cache['VESSELS']['Mash_Tun']['Sensors']
-                ChartSettings(s)
-                s = cache['VESSELS']['Hot_Liquor_Tank']['Sensors']
-                ChartSettings(s)
-            }    
-            
+                ChartSettings(['Boil_Kettle', 'Mash_Tun', 'Hot_Liquor_Tank'])
+            }     
             else {
                 title0 = 'Smoker'
-                let s = cache['VESSELS']['Smoker']['Sensors']
-                ChartSettings(s)
+                ChartSettings(['Smoker'])
             }
             setTitle(title0)
             setTypes(t0)
             setNames(n0)
             setSeries(s0)
             setYAxis(y0)
-            console.log(s0)
         } catch(err){} //console.log(err)} 
 
         return () => {}    
@@ -183,11 +172,20 @@ const HighChart = (props) => {
     const options = {
     
         chart: {
-            type: 'spline'
+            type: 'spline',
+            height: size
         },
 
         title: {
             text: title + ' Data',
+            style: {
+                // fontWeight: 'bold',
+                fontSize: '22'
+            }
+        },
+
+        xAxis: {
+            gridLineWidth: 1
         },
 
         yAxis: y_axis,
@@ -207,12 +205,30 @@ const HighChart = (props) => {
                     }
                 }
                 } catch {}
-                console.log('new data point')
             },     
             enablePolling: true
         },
 
         series: series,
+
+        exporting: {
+            // width: 2000,
+            sourceWidth: 2000,
+            sourceHeight: 1000,
+            },
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 750
+                },
+                chartOptions: {
+                    chart: {
+                        height: '60%'
+                    }
+                }
+            }]
+            },
 
         style: {
             overflow: 'visible',
