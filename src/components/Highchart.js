@@ -10,63 +10,75 @@ highchartsData(Highcharts);
 
 const HighChart = (props) => {
 
+    let locstring = ENDPOINT + '/data'
+    let cache = props.cache
     const [title, setTitle] = useState('')
-    const [display, setDisplay] = useState('')
+    const [names, setNames] = useState('')
+    const [types, setTypes] = useState('')
     const [series, setSeries] = useState('')
     const [y_axis, setYAxis] = useState('')
+    
 
     useEffect(() => { 
 
-        let cache = props.cache
-        let d0 = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false}
-        let n0 = {1: 'Sensor blah', 2: 'Sensor 2', 3: 'Sensor 3', 4: 'Sensor 4', 5: 'Sensor 5', 6: 'Sensor 6'}
+        let title0 = ''
+        let n0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
+        let t0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
+        let ty0 = {'Temp': false, 'SG': false, 'pH': false}
         let s0 = []
         let y0 = []
-        let t0 = {'Temp': false, 'SG': false, 'pH': false}
 
-        try {
-            var mode = cache['SYSTEM']['Static']['Mode'] 
-            if (mode === 'Ferment') {
-                setTitle('Fermentation')
-                let s = cache['VESSELS']['Fermenter']['Sensors']
-                for (let k in s) {
-                    d0[s[k]['index'] + 1] = true
-                    n0[s[k]['index'] + 1] = s[k]['name']
-                    let type = cache['SENSORS'][s[k]['index']]['dev_name']
 
+        function ChartSettings(s) {
+
+            for (let k in s) {
+                let index = parseInt(s[k]['index'])
+                n0[index + 1] = s[k]['name']
+                console.log('n0: ', n0)
+
+                t0[index + 1] = cache['SENSORS'][index]['dev_name'].split(' ')[0]
+                console.log('t0: ', t0)
+            }
+                
+            for (let i in t0) {
+                if (t0[i] === null) {
+                    // do nothing
+                }
+                else {
                     // TEMPERATURE SETTINGS
-                    if(type.split(' ')[0] === 'Temp') {
+                    if(t0[i] === 'Temp') {
                         let s_add = {
-                            name: s[k]['name'],
+                            name: n0[i],
                             yAxis: 0,
                             tooltip: {
                                 valueSuffix: ' °F'
                                 }  
                             }
                         s0.push(s_add)  
-                        let y_add = {
-                            labels: {
-                                format: '{value}°F',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
-                                }
-                            },
-                            title: {
-                                text: 'Temperature',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
+
+                        if (ty0['Temp'] === false) {
+                            let y_add = {
+                                labels: {
+                                    format: '{value}°F',
+                                    style: {
+                                        color: Highcharts.getOptions().colors[1]
+                                    }
+                                },
+                                title: {
+                                    text: 'Temperature',
+                                    style: {
+                                        color: Highcharts.getOptions().colors[1]
+                                    }
                                 }
                             }
-                        }
-                        if (t0['Temp'] === false) {
                             y0.push(y_add)
-                            t0['Temp'] = true
+                            ty0['Temp'] = true
                         }
 
                     // SPECIFIC GRAVITY SETTINGS
-                    } else if (type.split(' ')[0] === 'SG') { 
+                    } else if (t0[i] === 'SG') { 
                         let s_add = {
-                            name: s[k]['name'],
+                            name: n0[i],
                             yAxis: 1,
                             tooltip: {
                                 valueSuffix: ' SG'
@@ -74,29 +86,30 @@ const HighChart = (props) => {
                             }
                         s0.push(s_add)
 
-                        let y_add =  {
-                            labels: {
-                                format: '{value} SG',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
-                                }
-                            },
-                            title: {
-                                text: 'Specific Gravity',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
-                                }
+                        if (ty0['SG'] === false) {
+                            let y_add =  {
+                                labels: {
+                                    format: '{value} SG',
+                                    style: {
+                                        color: Highcharts.getOptions().colors[1]
+                                    }
+                                },
+                                title: {
+                                    text: 'Specific Gravity',
+                                    style: {
+                                        color: Highcharts.getOptions().colors[1]
+                                    }
+                                },
+                                opposite: true
                             }
-                        }
-                        if (t0['SG'] === false) {
                             y0.push(y_add)
-                            t0['SG'] = true
+                            ty0['SG'] = true
                         }               
 
                     // PH SETTINGS
                     } else { 
                         let s_add = {
-                            name: s[k]['name'],
+                            name: n0[i],
                             yAxis: 2,
                             tooltip: {
                                 valueSuffix: ' pH'
@@ -104,46 +117,71 @@ const HighChart = (props) => {
                             }
                         s0.push(s_add) 
                         
-                        let y_add =  {
-                            labels: {
-                                format: '{value} pH',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
-                                }
-                            },
-                            title: {
-                                text: 'pH',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
-                                }
+                        if (ty0['pH'] === false) {
+                            let y_add =  {
+                                labels: {
+                                    format: '{value} pH',
+                                    style: {
+                                        color: Highcharts.getOptions().colors[1]
+                                    }
+                                },
+                                title: {
+                                    text: 'pH',
+                                    style: {
+                                        color: Highcharts.getOptions().colors[1]
+                                    }
+                                },
+                                opposite: true
                             }
-                        }
-                        if (t0['pH'] === false) {
                             y0.push(y_add)
-                            t0['pH'] = true
+                            ty0['pH'] = true
                         }
                     }
                 }
-                setDisplay(d0)
-                setSeries(s0)
-                setYAxis(y0)
             }
-            else if (mode === 'Brew') {
-                setTitle('Brewing')
-            }     
-            else {
-                setTitle('Smoker')
-            }
-        } catch(err){} 
-        return () => {}    
-    }, [props.cache])
+        }
+        
 
-    let locstring = ENDPOINT + '/data'
+        // MAIN CHART RENDERING SCRIPT
+        try {
+            var mode = cache['SYSTEM']['Static']['Mode'] 
+
+            if (mode === 'Ferment') {
+                title0 = 'Fermentation'
+                let s = cache['VESSELS']['Fermenter']['Sensors']
+                ChartSettings(s)
+            }
+
+            else if (mode === 'Brew') {
+                title0 = 'Brew'
+                let s = cache['VESSELS']['Boil_Kettle']['Sensors']
+                ChartSettings(s)
+                s = cache['VESSELS']['Mash_Tun']['Sensors']
+                ChartSettings(s)
+                s = cache['VESSELS']['Hot_Liquor_Tank']['Sensors']
+                ChartSettings(s)
+            }    
+            
+            else {
+                title0 = 'Smoker'
+                let s = cache['VESSELS']['Smoker']['Sensors']
+                ChartSettings(s)
+            }
+            setTitle(title0)
+            setTypes(t0)
+            setNames(n0)
+            setSeries(s0)
+            setYAxis(y0)
+            console.log(s0)
+        } catch(err){} //console.log(err)} 
+
+        return () => {}    
+    }, [cache])
 
 
     // BUILD OPTIONS TREE FOR CHART
     const options = {
-        
+    
         chart: {
             type: 'spline'
         },
@@ -160,15 +198,17 @@ const HighChart = (props) => {
             parsed: function(columns) {
                 var i = 1
                 try {
-                for (let k in display) {
-                    if (display[k] === false) {
+                for (let k in types) {
+                    if (types[k] === null) {
                         columns.splice(i, 1)
                     } else {
+                        columns[i][0] = names[k]
                         i +=1
                     }
                 }
                 } catch {}
-            },
+                console.log('new data point')
+            },     
             enablePolling: true
         },
 
