@@ -1,3 +1,3 @@
-## MOON BREW CO FRONT END DEVELOPMENT REPOSITORY
+## MoonBrew Front End Development Repository
 
 See MoonBrew README for project details.
