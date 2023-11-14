@@ -16,8 +16,8 @@ import Timer from './components/Timer'
 import SystemSet from './components/SystemSet'
 
 // const ENDPOINT = "http://192.168.0.31:5000"
-const ENDPOINT = "http://24.7.3.84:80"
-// const ENDPOINT = window.location.origin
+// const ENDPOINT = "http://24.7.3.84:80"
+const ENDPOINT = window.location.origin
 console.log(ENDPOINT)
 export const socket = io(ENDPOINT)
 export {ENDPOINT}
