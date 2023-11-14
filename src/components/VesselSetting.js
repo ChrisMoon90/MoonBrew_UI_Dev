@@ -1,5 +1,6 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container'
 import { Row } from 'react-bootstrap';
 
@@ -94,72 +95,77 @@ function VesselSetting(props) {
   return(
     <>
       <style type="text/css">
-            {`
-        .set-title {
-          color: white;    
+              {`
+          .table-sm5 {
+            line-height: 0.75rem;
+            font-size: .9rem;
         }
-        .set-cont {
-          background-color: #707070;
-        }
-        `}
+          `}
       </style>
-      <Container className="square rounded-3 border border-dark border-3 set-cont">
-        <Row className="set-title"><center><h2 className="display-6">{title}</h2></center></Row>
-        <AddRemove vessel = {vessel_name} hw_type = 'Sensor'/>
-        <Row>
-          <Table striped bordered hover size='sm' variant='dark'>          
-            <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Sensor Name</th>
-                  <th>Sensor Select</th>
-                  <th>Com Type</th>
-                  <th>Current Value</th>
-                </tr>
-            </thead>
-            <tbody>      
-                {s_rows}
-            </tbody>
-          </Table>
-        </Row>
-        <AddRemove vessel = {vessel_name} hw_type = 'Actor'/>
-        <Row>
-          <Table striped bordered hover size='sm' variant='dark'>          
-            <thead>
-                 <tr>
-                  <th>#</th>
-                  <th>Actor Name</th>
-                  <th>Actor Select</th>
-                  <th>Type</th>
-                  <th>Current State</th>
-                </tr>
-            </thead>
-            <tbody>      
-                {a_rows}
-            </tbody>
-          </Table>
-        </Row>
-        <Row>
-          <Table striped bordered hover size='sm' variant='dark'>   
-            <thead>
-                <tr>
-                  <th>Setting</th>
-                  <th>Value</th>
-                </tr>
-            </thead>       
-            <tbody>      
-                <tr>
-                  <td>Target Temp</td>
-                  <td>{tar_temp} <ParamUpdater param_type = 'tar_temp' vessel = {vessel_name} v_dict = {v_dict}/></td>
-                </tr>
-                <tr>
-                  <td>Temp Tollerance</td>
-                  <td>{temp_tol} <ParamUpdater param_type = 'temp_tol' vessel = {vessel_name} v_dict = {v_dict}/></td>
-                </tr>          
-            </tbody>
-          </Table>
-        </Row>
-      </Container>
+      <Card border="dark">
+        <Card.Header style={{padding: 5, height: 55, fontSize: 25}}><span >{title} Settings</span></Card.Header>
+        <Card.Body className= "align-items-top" style={{padding: 0}}>
+          <Row style={{fontSize: 18}}><center>Sensor Settings</center></Row>
+          <AddRemove vessel = {vessel_name} hw_type = 'Sensor'/>
+          <Container fluid style={{padding: 0}}>
+          <Row>
+            <Table striped bordered hover size='sm5' variant='light' responsive>          
+              <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Select</th>
+                    <th>Coms</th>
+                    <th>Value</th>
+                  </tr>
+              </thead>
+              <tbody>      
+                  {s_rows}
+              </tbody>
+            </Table>
+          </Row>
+          <Row style={{fontSize: 18}}><center>Actor Settings</center></Row>
+          <AddRemove vessel = {vessel_name} hw_type = 'Actor'/>
+          <Row>
+            <Table striped bordered hover size='sm5' variant='light' responsive>          
+              <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Select</th>
+                    <th>Type</th>
+                    <th>State</th>
+                  </tr>
+              </thead>
+              <tbody>      
+                  {a_rows}
+              </tbody>
+            </Table>
+          </Row>
+          <Row style={{padding: 5, fontSize: 18}}><center>Auto Settings</center></Row>
+          <Row>
+            <Table striped bordered hover size='sm5' variant='light' responsive>   
+              <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Value</th>
+                  </tr>
+              </thead>       
+              <tbody>      
+                  <tr>
+                    <td>Target Temp</td>
+                    <td>{tar_temp} <ParamUpdater param_type = 'tar_temp' vessel = {vessel_name} v_dict = {v_dict}/></td>
+                  </tr>
+                  <tr>
+                    <td>Temp Tollerance</td>
+                    <td>{temp_tol} <ParamUpdater param_type = 'temp_tol' vessel = {vessel_name} v_dict = {v_dict}/></td>
+                  </tr>          
+              </tbody>
+            </Table>
+          </Row>
+          </Container>
+        </Card.Body>
+      </Card>
       <br></br>
     </>
   )

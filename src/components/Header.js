@@ -6,6 +6,8 @@ import { Container } from 'react-bootstrap';
 
 function Header () {
   var [date,setDate] = useState(new Date());
+
+  const version = 'v0.1.1'
  
   useEffect(() => {
     var timer = setInterval(()=>setDate(new Date()), 1000 )
@@ -18,7 +20,7 @@ function Header () {
   return(
     <Navbar collapseOnSelect bg="dark" variant="dark" expand="md">
       <Container fluid bg="light" className="mr-auto">
-        <Navbar.Brand >MoonBrew&nbsp;<small><small><small>v0.1</small></small></small></Navbar.Brand>
+        <Navbar.Brand >MoonBrew&nbsp;<small><small><small>{version}</small></small></small></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="me-auto">       

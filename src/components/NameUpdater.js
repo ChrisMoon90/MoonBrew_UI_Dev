@@ -29,7 +29,16 @@ function NameUpdater(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow} size="sm">
+      <style type="text/css">
+            {`
+        .btn-sm2 {
+          padding: .05rem .25rem;
+          font-size: .8rem;
+        }
+        `}
+      </style>
+      
+      <Button variant="primary" onClick={handleShow} size="sm2">
         Edit
       </Button>
       <Modal show={show} onHide={handleClose} onSubmit={handleUpdate}>

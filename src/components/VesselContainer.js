@@ -27,7 +27,8 @@ function VesselContainer(props) {
       s_name = v_dict['Sensors'][key]['name'];
       s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
       sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
-      if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
+      if (sval.search("Temp") === 0) {unit = " \xB0F"}
+        else if (sval.search("pH") === 0) {unit = ' pH'}
         else {unit = " SG"}
     } catch(err){
       console.log('VesselContainer Error: sensor missing key')

@@ -1,7 +1,7 @@
 import Dropdown from 'react-bootstrap/Dropdown';
-import Container from 'react-bootstrap/Container';
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import { Row } from 'react-bootstrap';
 
 import { socket } from '../App';
 import Slider from './Slider'
@@ -26,21 +26,25 @@ function SystemSet(props) {
   return(
     <>
       <style type="text/css">
-            {`
-        .set-title {
-          color: white;    
+              {`
+          .btn-sm5 {
+              // padding: .05rem .5rem;
+              font-size: .8rem;
+          }
+          .table-sm5 {
+            line-height: 0.75rem;
+            font-size: .9rem;
         }
-        .set-cont {
-          background-color: #707070;
-        }
-        `}
+          `}
       </style>
-      <br></br>
-      <Container className="square rounded-3 border border-dark border-3 set-cont">
-        <Row className="set-title"><center><h2 className="display-6">System Settings</h2></center></Row>
-        <Row>
-          <Table striped bordered hover size='sm' variant='dark'>          
-            <thead>
+
+      <Card border="dark">
+        <Card.Header style={{padding: 5, height: 55, fontSize: 25}}>System Settings</Card.Header>
+        <Card.Body  style={{padding: 0}}>
+        <br />
+        <Container fluid style={{padding: 0}}>
+          <Table striped bordered hover size='sm5' variant='light' responsive>          
+            <thead> 
                 <tr>
                   <th>Item</th>
                   <th>Setting</th>
@@ -51,7 +55,7 @@ function SystemSet(props) {
                 <td>Mode</td>
                 <td>
                   <Dropdown>
-                    <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">
+                    <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm5">
                       {mode}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -64,12 +68,12 @@ function SystemSet(props) {
               </tr> 
             </tbody>
           </Table>
-        </Row>
-        <Row>
+        <br />
         <Slider  cache = {cache} min = {0.5} max = {30} step = {0.5}/>
-        </Row>
-      </Container>
-      <br></br>
+        </Container>
+        </Card.Body>
+      </Card>
+      <br />
     </>
   );
 }

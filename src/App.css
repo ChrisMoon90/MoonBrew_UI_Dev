@@ -10,13 +10,16 @@
   position: fixed; */
 }
 
-.VesselContainer {
-  text-align: center;
+.card-s_title {
+  font-size: 25;
+  padding: 5;
+  height: 55;
+  color: white
 }
 
-.Container {
-  text-align: center;
-  background-color: purple;
+.btn-sm2 {
+  padding: .15rem .15rem;
+  font-size: .8rem;
 }
 
 /* .vessel {

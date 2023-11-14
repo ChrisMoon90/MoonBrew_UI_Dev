@@ -30,7 +30,17 @@ function ParamUpdater(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow} size="sm">
+        <style type="text/css">
+            {`
+        .btn-sm2 {
+          padding: .05rem .5rem;
+          font-size: .8rem;
+        }
+        `}
+      </style>
+
+
+      <Button variant="primary" size='sm2' onClick={handleShow}>
         Edit
       </Button>
       <Modal show={show} onHide={handleClose} onSubmit={handleUpdate}>

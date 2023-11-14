@@ -22,8 +22,17 @@ function ActorType(props) {
     
     return(
         <div>
+        <style type="text/css">
+                {`
+            .btn-sm5 {
+                padding: .05rem .5rem;
+                font-size: .8rem;
+            }
+            `}
+        </style>
+
         <Dropdown>
-            <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">
+            <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm5">
             {active_type}
             </Dropdown.Toggle>
             <Dropdown.Menu>

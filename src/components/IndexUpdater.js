@@ -31,8 +31,17 @@ function IndexUpdater (props) {
 
     return(
       <div>
+        <style type="text/css">
+              {`
+          .btn-sm2 {
+              padding: .05rem .5rem;
+              font-size: .8rem;
+          }
+          `}
+        </style>
+
         <Dropdown>
-          <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">
+          <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm2">
             {active_dev}
           </Dropdown.Toggle>
           <Dropdown.Menu>
