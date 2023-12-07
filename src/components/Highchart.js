@@ -10,7 +10,7 @@ highchartsData(Highcharts);
 
 const HighChart = (props) => {
 
-    let locstring = ENDPOINT + '/data'
+    let locstring = ENDPOINT + '/api/sensors'
     let cache = props.cache
     let size = props.size
     const [title, setTitle] = useState('')

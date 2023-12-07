@@ -41,7 +41,7 @@ function IndexUpdater (props) {
         </style>
 
         <Dropdown>
-          <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm2">
+          <Dropdown.Toggle variant="secondary" id="dropdown-basic" size="sm2">
             {active_dev}
           </Dropdown.Toggle>
           <Dropdown.Menu>

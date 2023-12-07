@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import './App.css'
 import React, { useState, useEffect } from 'react'
 import { io } from "socket.io-client"
@@ -14,9 +13,10 @@ import VesselSetting from './components/VesselSetting'
 import HighChart from './components/Highchart'
 import Timer from './components/Timer'
 import SystemSet from './components/SystemSet'
+import Configuration from './components/Configuration'
 
 // const ENDPOINT = "http://192.168.0.31:5000"
-// const ENDPOINT = "http://24.7.3.84:80"
+// const ENDPOINT = "http://24.7.3.84:81"
 const ENDPOINT = window.location.origin
 console.log(ENDPOINT)
 export const socket = io(ENDPOINT)
@@ -35,7 +35,7 @@ function App() {
       }});
     socket.on("cache", cache => {
       if (isMounted) {
-        console.log('Cache Received')
+        console.log('Cache Received', cache)
         set_cache(cache);
         set_mode(cache['SYSTEM']['Static']['Mode'])
       }});
@@ -50,19 +50,16 @@ function App() {
   try {
     if (mode === 'Smoke') {
       home = <VesselContainer vessel_name = 'Smoker' cache = {cache}/>;
-      settings = [<SystemSet key = '1' cache = {cache}/>,
-                  <VesselSetting key = '2' vessel_name = 'Smoker' cache = {cache}/>]}
+      settings = <VesselSetting vessel_name = 'Smoker' cache = {cache}/>}
     else if (mode === 'Brew') {
       home = [<VesselContainer key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
               <VesselContainer key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
               <VesselContainer key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>];
-      settings = [<SystemSet key = '1' cache = {cache}/>,
-                  <VesselSetting key = '2' vessel_name = 'Boil_Kettle' cache = {cache}/>,
-                  <VesselSetting key = '3' vessel_name = 'Mash_Tun' cache = {cache}/>,
-                  <VesselSetting key = '4' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}          
+      settings = [<VesselSetting key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
+                  <VesselSetting key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
+                  <VesselSetting key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}          
     else if (mode === 'Ferment') {home = <VesselContainer vessel_name = 'Fermenter' cache = {cache}/>;
-                                  settings = [<SystemSet key = '1' cache = {cache}/>,
-                                              <VesselSetting key = '2' vessel_name = 'Fermenter' cache = {cache}/>]}
+                                  settings = <VesselSetting vessel_name = 'Fermenter' cache = {cache}/>}
     else {home = 'Waiting for connection to server...';
           settings = 'Waiting for connection to server...'}
   } catch(err){console.log('Failed to Load Vessel')}
@@ -93,8 +90,12 @@ function App() {
                 <LogButtons cache = {cache}/>
                 <Timer cache = {cache}/>
               </Route>
-              <Route path="/settings">
+              <Route path="/system">
+                <SystemSet cache = {cache}/>
                 {settings}
+              </Route>
+              <Route path='/diagnostics'>
+                <Configuration cache = {cache}/>  
               </Route>
             </Switch>
             <NewAlert />

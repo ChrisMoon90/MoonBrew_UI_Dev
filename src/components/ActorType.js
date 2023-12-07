@@ -32,7 +32,7 @@ function ActorType(props) {
         </style>
 
         <Dropdown>
-            <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm5">
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic" size="sm5">
             {active_type}
             </Dropdown.Toggle>
             <Dropdown.Menu>

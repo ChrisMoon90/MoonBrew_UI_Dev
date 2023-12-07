@@ -1,13 +1,14 @@
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import {LinkContainer} from 'react-router-bootstrap'
-import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Container } from 'react-bootstrap'
 
 function Header () {
   var [date,setDate] = useState(new Date());
 
-  const version = 'v0.1.1'
+  const version = 'v2.0'
  
   useEffect(() => {
     var timer = setInterval(()=>setDate(new Date()), 1000 )
@@ -31,10 +32,11 @@ function Header () {
             <LinkContainer to="/chart">
               <Nav.Link className="ms-auto">Chart</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/settings">
-              <Nav.Link className="ms-auto">Settings</Nav.Link>
-            </LinkContainer>
-            </Nav>
+            <NavDropdown title="Settings" id="basic-nav-dropdown" className="ms-auto">
+              <NavDropdown.Item href="/system">System</NavDropdown.Item>
+              <NavDropdown.Item href="/diagnostics">Diagnostics</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
           <Nav className="ms-auto">
               <Navbar.Text className="ms-auto">
                   <small>{date.toLocaleDateString()} | {date.toLocaleTimeString()}</small>

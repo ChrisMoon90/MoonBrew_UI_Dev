@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { BsPencilSquare } from "react-icons/bs"
 
 import { socket } from '../App';
 
@@ -32,17 +33,18 @@ function ParamUpdater(props) {
     <>
         <style type="text/css">
             {`
-        .btn-sm2 {
-          padding: .05rem .5rem;
-          font-size: .8rem;
+        .btn-sm6 {
+          padding: 0.05rem .25rem;
+          font-size: .85rem;
         }
         `}
       </style>
 
 
-      <Button variant="primary" size='sm2' onClick={handleShow}>
-        Edit
+      <Button variant="muted" size='sm6' onClick={handleShow}>
+        <BsPencilSquare />
       </Button>
+
       <Modal show={show} onHide={handleClose} onSubmit={handleUpdate}>
         <Modal.Header closeButton>
           <Modal.Title>Set {d_name} Value</Modal.Title>

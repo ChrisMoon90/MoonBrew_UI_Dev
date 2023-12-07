@@ -55,7 +55,7 @@ function SystemSet(props) {
                 <td>Mode</td>
                 <td>
                   <Dropdown>
-                    <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm5">
+                    <Dropdown.Toggle variant="secondary" id="dropdown-basic" size="sm5">
                       {mode}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>

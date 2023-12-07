@@ -1,4 +1,11 @@
-$body-bg: rgb(245,245,245);
+$body-bg: 	#F5F5F5;
 $body-color: rgba(0, 0, 0, 0.952);
 
-@import '~bootstrap/scss/bootstrap';
+$form-range-thumb-bg: #696969;
+$form-range-thumb-active-bg: #696969;
+$focus-box-shadow: 0 0 5px 5px #A9A9A9;
+$form-range-thumb-focus-box-shadow: 0 0 0 0px #FFFFFF, $focus-box-shadow;
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+

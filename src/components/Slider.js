@@ -18,7 +18,7 @@ function Slider(props) {
 
   useEffect(() => {
     setCurVal(log_rate)
-  }, [props.cache])
+  }, [props.cache, log_rate])
   
   const [ cur_val, setCurVal] = useState('') 
 
@@ -30,6 +30,8 @@ function Slider(props) {
     }, 750), []
   )
 
+ 
+
   return (
     <Container fluid>
     <Form.Group as={Row}>
@@ -37,7 +39,7 @@ function Slider(props) {
         <Form.Label>Log Rate</Form.Label>
       </Col> 
       <Col xs="6">
-        <Form.Range
+        <Form.Range 
           value={cur_val}
           onChange = {e => {setCurVal(e.target.value); send_val(e.target.value, s_dict)}}
           min={props.min}

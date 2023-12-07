@@ -31,8 +31,8 @@ function AddRemove(props) {
                         <Col style={{justifyContent:'right'}}>
                             <small><small>Add/Remove</small></small>&nbsp; 
                             <ButtonGroup >
-                                <Button variant="primary" size='sm3' onClick={(f) => add_rm_hardware("add")}><strong>+</strong></Button>
-                                <Button variant="primary" size='sm3' onClick={(f) => add_rm_hardware("remove")}><strong>-</strong></Button>
+                                <Button variant="secondary" size='sm3' onClick={(f) => add_rm_hardware("add")}><strong>+</strong></Button>
+                                <Button variant="secondary" size='sm3' onClick={(f) => add_rm_hardware("remove")}><strong>-</strong></Button>
                             </ButtonGroup>
                         </Col>
                     </Row>   

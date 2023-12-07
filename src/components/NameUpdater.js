@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { BsPencilSquare } from "react-icons/bs"
 
 import { socket } from '../App';
 
@@ -31,15 +32,15 @@ function NameUpdater(props) {
     <>
       <style type="text/css">
             {`
-        .btn-sm2 {
-          padding: .05rem .25rem;
-          font-size: .8rem;
+        .btn-sm7 {
+          padding: .01rem .25rem;
+          font-size: .85rem;
         }
         `}
       </style>
       
-      <Button variant="primary" onClick={handleShow} size="sm2">
-        Edit
+      <Button variant="muted" onClick={handleShow} size="sm7">
+        <BsPencilSquare />
       </Button>
       <Modal show={show} onHide={handleClose} onSubmit={handleUpdate}>
         <Modal.Header closeButton>

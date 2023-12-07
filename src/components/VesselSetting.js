@@ -94,24 +94,26 @@ function VesselSetting(props) {
 
   return(
     <>
+    <div>
       <style type="text/css">
               {`
-          .table-sm5 {
-            line-height: 0.75rem;
-            font-size: .9rem;
+          tr {
+            line-height: 20px;
+            font-size: 14px;
         }
           `}
       </style>
+
       <Card border="dark">
         <Card.Header style={{padding: 5, height: 55, fontSize: 25}}><span >{title} Settings</span></Card.Header>
-        <Card.Body className= "align-items-top" style={{padding: 0}}>
+        <Card.Body style={{padding: 0}}>
           <Row style={{fontSize: 18}}><center>Sensor Settings</center></Row>
           <AddRemove vessel = {vessel_name} hw_type = 'Sensor'/>
           <Container fluid style={{padding: 0}}>
           <Row>
-            <Table striped bordered hover size='sm5' variant='light' responsive>          
+            <Table striped bordered hover variant='light' responsive>          
               <thead>
-                  <tr>
+                  <tr style={{lineHeight: .7}}>
                     <th>#</th>
                     <th>Name</th>
                     <th>Select</th>
@@ -129,7 +131,7 @@ function VesselSetting(props) {
           <Row>
             <Table striped bordered hover size='sm5' variant='light' responsive>          
               <thead>
-                  <tr>
+                  <tr style={{lineHeight: .7}}>
                     <th>#</th>
                     <th>Name</th>
                     <th>Select</th>
@@ -146,7 +148,7 @@ function VesselSetting(props) {
           <Row>
             <Table striped bordered hover size='sm5' variant='light' responsive>   
               <thead>
-                  <tr>
+                  <tr style={{lineHeight: .7}}>
                     <th>Setting</th>
                     <th>Value</th>
                   </tr>
@@ -154,7 +156,7 @@ function VesselSetting(props) {
               <tbody>      
                   <tr>
                     <td>Target Temp</td>
-                    <td>{tar_temp} <ParamUpdater param_type = 'tar_temp' vessel = {vessel_name} v_dict = {v_dict}/></td>
+                      <td>{tar_temp} <ParamUpdater param_type = 'tar_temp' vessel = {vessel_name} v_dict = {v_dict}/></td>
                   </tr>
                   <tr>
                     <td>Temp Tollerance</td>
@@ -167,8 +169,9 @@ function VesselSetting(props) {
         </Card.Body>
       </Card>
       <br></br>
-    </>
+    </div>
+    </ >
   )
 }
 
-export default VesselSetting;
+export default VesselSetting
