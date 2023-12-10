@@ -40,17 +40,23 @@ function SystemButton(props) {
                         download(target, r.data)
                     })
                     .catch((e) => console.log(e))
-            } else {
-                socket.emit('delete_log')
+            } 
+            else {
+                socket.emit('delete', 'sensors.csv')
             }
         }       
         else if (target === 'system') {
-            console.log('Download requested: ', target)
-            axios.get(ENDPOINT + '/api/system')
-                .then ((r) => {
-                    download(target, r.data)
-                })
-                .catch((e) => console.log(e))
+            if (action === 'download') {
+                console.log('Download requested: ', target)
+                axios.get(ENDPOINT + '/api/system')
+                    .then ((r) => {
+                        download(target, r.data)
+                    })
+                    .catch((e) => console.log(e))
+            }
+            else {
+                socket.emit('delete', 'system.txt')
+            }
         }      
     }
 
@@ -59,7 +65,10 @@ function SystemButton(props) {
         const url = window.URL.createObjectURL(blob) 
         const a = document.createElement('a') 
         a.setAttribute('href', url) 
-        a.setAttribute('download', target + '.csv'); 
+        let fn
+        if (target === 'system') {fn = 'system.txt'}
+        else {fn = 'sensors.csv'}
+        a.setAttribute('download', fn); 
         a.click() 
     }
 

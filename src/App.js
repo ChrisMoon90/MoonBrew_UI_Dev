@@ -23,31 +23,39 @@ export const socket = io(ENDPOINT)
 export {ENDPOINT}
 
 function App() {
+
   const [cache, set_cache] = useState("")
-  const [mode, set_mode] = useState("")
 
   useEffect(() => {
+
     let isMounted = true
     
     socket.on("connect", msg => {
       if (isMounted) {
         console.log("Connected to socket.io server!")
-      }});
+        }
+      }
+    )
+
     socket.on("cache", cache => {
       if (isMounted) {
         console.log('Cache Received', cache)
-        set_cache(cache);
-        set_mode(cache['SYSTEM']['Static']['Mode'])
-      }});
+        set_cache(cache)
+        }
+      }
+    )
+
     return () => { 
         console.log('Unmounted Home')
         isMounted = false
-    }; 
+    }
   }, []);
 
+  let mode
   let home
   let settings
   try {
+    mode = cache['SYSTEM']['Static']['Mode']
     if (mode === 'Smoke') {
       home = <VesselContainer vessel_name = 'Smoker' cache = {cache}/>;
       settings = <VesselSetting vessel_name = 'Smoker' cache = {cache}/>}
@@ -107,3 +115,4 @@ function App() {
 };
 
 export default App;
+// cache = {cache}

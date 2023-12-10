@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import highchartsData from 'highcharts/modules/data.js'
@@ -10,18 +10,18 @@ highchartsData(Highcharts);
 
 const HighChart = (props) => {
 
-    let locstring = ENDPOINT + '/api/sensors'
     let cache = props.cache
     let size = props.size
-    const [title, setTitle] = useState('')
-    const [names, setNames] = useState('')
-    const [types, setTypes] = useState('')
-    const [series, setSeries] = useState('')
-    const [y_axis, setYAxis] = useState('')
+    let title
+    let names
+    let types
+    let series
+    let y_axis
+    let locstring
+    if (cache !== '') {
+        locstring = ENDPOINT + '/api/sensors'
+    }
     
-
-    useEffect(() => { 
-
         let title0 = ''
         let n0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
         let t0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
@@ -29,7 +29,7 @@ const HighChart = (props) => {
         let s0 = []
         let y0 = []
 
-
+        // SET UP CHART SETTINGS
         function ChartSettings(vessels) {
 
             for (let x in vessels) {
@@ -139,8 +139,7 @@ const HighChart = (props) => {
                 }
             }
         }
-        
-
+            
         // MAIN CHART RENDERING SCRIPT
         try {
             var mode = cache['SYSTEM']['Static']['Mode'] 
@@ -157,20 +156,19 @@ const HighChart = (props) => {
                 title0 = 'Smoker'
                 ChartSettings(['Smoker'])
             }
-            setTitle(title0)
-            setTypes(t0)
-            setNames(n0)
-            setSeries(s0)
-            setYAxis(y0)
-        } catch(err){} //console.log(err)} 
 
-        return () => {}    
-    }, [cache])
+            title = title0
+            types = t0
+            names = n0
+            series = s0
+            y_axis = y0
+            console.log('updated values')
 
+        } catch(err){ } //console.log(err)} 
 
     // BUILD OPTIONS TREE FOR CHART
     const options = {
-    
+
         chart: {
             type: 'spline',
             height: size
@@ -206,13 +204,12 @@ const HighChart = (props) => {
                 }
                 } catch {}
             },     
-            enablePolling: true
+            enablePolling: false
         },
 
         series: series,
 
         exporting: {
-            // width: 2000,
             sourceWidth: 2000,
             sourceHeight: 1000,
             },
@@ -232,17 +229,16 @@ const HighChart = (props) => {
 
         style: {
             overflow: 'visible',
-          },  
+        },  
 
         accessibility: {
             enabled: false
         }
     }
 
-
     return(
         <div>
-            <HighchartsReact highcharts={Highcharts} options={options} allowChartUpdate = { true } />
+            <HighchartsReact highcharts={Highcharts} options={options} allowChartUpdate = {true} /> 
         </div>       
     )
 }
