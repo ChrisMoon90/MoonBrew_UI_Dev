@@ -162,7 +162,6 @@ const HighChart = (props) => {
             names = n0
             series = s0
             y_axis = y0
-            console.log('updated values')
 
         } catch(err){ } //console.log(err)} 
 
