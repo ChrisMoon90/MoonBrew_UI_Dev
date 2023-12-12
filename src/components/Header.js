@@ -8,7 +8,7 @@ import { Container } from 'react-bootstrap'
 function Header () {
   var [date,setDate] = useState(new Date());
 
-  const version = 'v2.0'
+  const version = 'v2.1'
  
   useEffect(() => {
     var timer = setInterval(()=>setDate(new Date()), 1000 )
@@ -33,8 +33,12 @@ function Header () {
               <Nav.Link className="ms-auto">Chart</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Settings" id="basic-nav-dropdown" className="ms-auto">
-              <NavDropdown.Item href="/system">System</NavDropdown.Item>
-              <NavDropdown.Item href="/diagnostics">Diagnostics</NavDropdown.Item>
+              <LinkContainer to="/system">
+                <NavDropdown.Item>System</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to="/diagnostics">
+                <NavDropdown.Item> Diagnostics </NavDropdown.Item>
+              </LinkContainer>
             </NavDropdown>
           </Nav>
           <Nav className="ms-auto">

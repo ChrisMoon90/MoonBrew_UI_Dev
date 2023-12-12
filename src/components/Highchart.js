@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import highchartsData from 'highcharts/modules/data.js'
@@ -17,10 +17,25 @@ const HighChart = (props) => {
     let types
     let series
     let y_axis
-    let locstring
-    if (cache !== '') {
-        locstring = ENDPOINT + '/api/sensors'
-    }
+
+    const [locstring, setLocString] = useState('')
+
+    useEffect(() => {
+
+        let isMounted = true
+        if (isMounted) {
+            if (cache !== '') {
+                setLocString(ENDPOINT + '/api/sensors')
+            }
+        }
+
+        return () => { 
+            isMounted = false
+        }
+
+      }, [cache]);
+
+    
     
         let title0 = ''
         let n0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
