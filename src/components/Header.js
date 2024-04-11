@@ -8,7 +8,7 @@ import { Container } from 'react-bootstrap'
 function Header () {
   var [date,setDate] = useState(new Date());
 
-  const version = 'v2.1'
+  const version = 'v2.2'
  
   useEffect(() => {
     var timer = setInterval(()=>setDate(new Date()), 1000 )

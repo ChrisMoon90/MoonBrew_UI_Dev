@@ -42,17 +42,20 @@ function Configuration(props) {
     let a_num
     let a_name
     let state
+    let pin
     for (let key in actors) {
       try{
         a_num = Number(key)
         a_name = actors[key]['dev_name']
         state = String(actors[key]['state'])
+        pin = actors[key]['pin']
     } catch(err) {}
       a_rows.push(
         <tr key = {key}>
           <td>{a_num}</td>
           <td>{a_name}</td>
           <td>{state}</td>
+          <td>{pin}</td>
         </tr>
       )
     }
@@ -133,6 +136,7 @@ function Configuration(props) {
                     <th>#</th>
                     <th>actor_name</th>
                     <th>state</th>
+                    <th>pin</th>
                     </tr>
                 </thead>
                 <tbody>      
