@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import { socket } from '../App';
 import axios from 'axios'
-import { BsCloudDownload, BsPower, BsXLg } from "react-icons/bs"
+import { BsCloudDownload, BsPower, BsXLg , BsSearch } from "react-icons/bs"
 
 import { ENDPOINT } from '../App';
 
@@ -20,8 +20,12 @@ function SystemButton(props) {
         icon = ['Delete ', <BsXLg key='1'/>]
         color = 'danger'
     }
+    else if (action === 'init_sensors') {
+        icon = ['Re-Detect Sensors ', <BsSearch key='2'/>]
+        color = 'secondary'
+    }
     else {
-        icon = ['Reboot  ', <BsPower key='2'/>]
+        icon = ['Reboot  ', <BsPower key='3'/>]
         color = 'danger'
     }
 
@@ -41,6 +45,10 @@ function SystemButton(props) {
                     })
                     .catch((e) => console.log(e))
             } 
+            else if (action === 'init_sensors') {
+                console.log('Re-Detect Sensors Initiated')
+                socket.emit('init_sensors')
+            }
             else {
                 socket.emit('delete', 'sensors.csv')
             }

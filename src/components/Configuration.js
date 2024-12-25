@@ -147,6 +147,8 @@ function Configuration(props) {
             <br></br>
             <Row style={{fontSize: 24}}><center>System Controls</center></Row>
             <SystemButton target = 'reboot' />
+            <br></br>
+            <SystemButton target = 'sensors' action = 'init_sensors' />
             
             <br></br>
             <br></br>

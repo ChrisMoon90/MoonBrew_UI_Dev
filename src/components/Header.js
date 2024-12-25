@@ -5,11 +5,15 @@ import {LinkContainer} from 'react-router-bootstrap'
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 
-function Header () {
+function Header (props) {
+  let version
+  try {
+    version = 'v' + String(props.cache['SYSTEM']['Static']['version'])
+  } catch(err){}
+
   var [date,setDate] = useState(new Date());
 
-  const version = 'v2.2'
- 
+  
   useEffect(() => {
     var timer = setInterval(()=>setDate(new Date()), 1000 )
     

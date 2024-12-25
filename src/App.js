@@ -16,8 +16,8 @@ import SystemSet from './components/SystemSet'
 import Configuration from './components/Configuration'
 
 // const ENDPOINT = "http://192.168.0.30:5000"
-// // const ENDPOINT = "http://24.7.3.84:80"
-const ENDPOINT = window.location.origin
+const ENDPOINT = "http://24.7.0.49:80"
+// const ENDPOINT = window.location.origin
 console.log(ENDPOINT)
 export const socket = io(ENDPOINT)
 export {ENDPOINT}
@@ -76,7 +76,7 @@ function App() {
     <React.Fragment>
       <Router>
         <div className="App">
-          <Header />
+          <Header cache = {cache}/>
           <div className="content">
             <Switch>
               <Route exact path="/">

@@ -40,9 +40,9 @@ const HighChart = (props) => {
         let title0 = ''
         let n0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
         let t0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
-        let ty0 = {'Temp': false, 'SG': false, 'pH': false}
-        let s0 = []
-        let y0 = []
+        let ty0 = [] // List of active y-axes
+        let s0 = [] // List of data series
+        let y0 = [] // List of added y-axis info
 
         // SET UP CHART SETTINGS
         function ChartSettings(vessels) {
@@ -61,16 +61,11 @@ const HighChart = (props) => {
 
                     // TEMPERATURE SETTINGS
                     if(t0[i] === 'Temp') {
-                        let s_add = {
-                            name: n0[i],
-                            yAxis: 0,
-                            tooltip: {
-                                valueSuffix: ' °F'
-                                }  
-                            }
-                        s0.push(s_add)  
-
-                        if (ty0['Temp'] === false) {
+                        
+                        if (ty0.indexOf('Temp') === -1) {
+                            ty0.push('Temp')
+                            let opp
+                            if (ty0.indexOf('Temp') === 0) {opp = false} else {opp = true}
                             let y_add = {
                                 labels: {
                                     format: '{value}°F',
@@ -83,24 +78,30 @@ const HighChart = (props) => {
                                     style: {
                                         color: Highcharts.getOptions().colors[1]
                                     }
-                                }
+                                },
+                                opposite: opp
                             }
                             y0.push(y_add)
-                            ty0['Temp'] = true
                         }
+
+                        let s_add = {
+                            name: n0[i],
+                            yAxis: ty0.indexOf('Temp'), 
+                            tooltip: {
+                                valueSuffix: ' °F'
+                                }  
+                            }
+                        s0.push(s_add)  
+
+
 
                     // SPECIFIC GRAVITY SETTINGS
                     } else if (t0[i] === 'SG') { 
-                        let s_add = {
-                            name: n0[i],
-                            yAxis: 1,
-                            tooltip: {
-                                valueSuffix: ' SG'
-                                }  
-                            }
-                        s0.push(s_add)
 
-                        if (ty0['SG'] === false) {
+                        if (ty0.indexOf('SG') === -1) {
+                            ty0.push('SG')
+                            let opp
+                            if (ty0.indexOf('SG') === 0) {opp = false} else {opp = true}
                             let y_add =  {
                                 labels: {
                                     format: '{value} SG',
@@ -114,24 +115,30 @@ const HighChart = (props) => {
                                         color: Highcharts.getOptions().colors[1]
                                     }
                                 },
-                                opposite: true
+                                opposite: opp
                             }
                             y0.push(y_add)
-                            ty0['SG'] = true
-                        }               
+                            
+                        } 
+
+                        let s_add = {
+                            name: n0[i],
+                            yAxis: ty0.indexOf('SG'),
+                            tooltip: {
+                                valueSuffix: ' SG'
+                                }  
+                            }
+                        s0.push(s_add)
+
+              
 
                     // PH SETTINGS
                     } else { 
-                        let s_add = {
-                            name: n0[i],
-                            yAxis: 2,
-                            tooltip: {
-                                valueSuffix: ' pH'
-                                }  
-                            }
-                        s0.push(s_add) 
-                        
-                        if (ty0['pH'] === false) {
+
+                        if (ty0.indexOf('pH') === -1) {
+                            ty0.push('pH')
+                            let opp
+                            if (ty0.indexOf('pH') === 0) {opp = false} else {opp = true}
                             let y_add =  {
                                 labels: {
                                     format: '{value} pH',
@@ -145,11 +152,19 @@ const HighChart = (props) => {
                                         color: Highcharts.getOptions().colors[1]
                                     }
                                 },
-                                opposite: true
+                                opposite: opp
                             }
                             y0.push(y_add)
-                            ty0['pH'] = true
                         }
+
+                        let s_add = {
+                            name: n0[i],
+                            yAxis: ty0.indexOf('pH'),
+                            tooltip: {
+                                valueSuffix: ' pH'
+                                }  
+                            }
+                        s0.push(s_add) 
                     }
                 }
             }
@@ -208,14 +223,14 @@ const HighChart = (props) => {
             parsed: function(columns) {
                 var i = 1
                 try {
-                for (let k in types) {
-                    if (types[k] === null) {
-                        columns.splice(i, 1)
-                    } else {
-                        columns[i][0] = names[k]
-                        i +=1
+                    for (let k in types) {
+                        if (types[k] === null) {
+                            columns.splice(i, 1)
+                        } else {
+                            columns[i][0] = names[k]
+                            i +=1
+                        }
                     }
-                }
                 } catch {}
             },     
             enablePolling: false
