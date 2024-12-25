@@ -7,65 +7,69 @@ import { BsCloudDownload, BsPower, BsXLg , BsSearch } from "react-icons/bs"
 import { ENDPOINT } from '../App';
 
 function SystemButton(props) {
-    let target = props.target
+    let type = props.type
     let action = props.action
     let icon
     let color
 
-    if (action === 'download') {
+    if (type === 'download') {
         icon = ['Download ', <BsCloudDownload key='0'/>]
         color = 'secondary'
     }
-    else if (action === 'delete') {
+    else if (type === 'delete') {
         icon = ['Delete ', <BsXLg key='1'/>]
         color = 'danger'
     }
-    else if (action === 'init_sensors') {
+    else if (type === 'init') {
         icon = ['Re-Detect Sensors ', <BsSearch key='2'/>]
         color = 'secondary'
     }
-    else {
+    else if (type === 'reboot') {
         icon = ['Reboot  ', <BsPower key='3'/>]
         color = 'danger'
     }
 
-    function send_to_server(target) {
-        if (target === 'reboot') {
+    function send_to_server(action) {
+
+        if (action === 'reboot') {
             if (window.confirm('Are you sure you want to reboot the system?')) {
-                console.log('Reboot requested')
                 socket.emit('reboot')
             }
         } 
-        else if (target === 'sensors') {
-            if (action === 'download') {
-                console.log('Download requested: ', target)
+
+        else if (action === 'download_sensor_data') {
+                console.log('Download requested: ', action)
                 axios.get(ENDPOINT + '/api/sensors')
                     .then ((r) => {
-                        download(target, r.data)
+                        download('sensors', r.data)
                     })
                     .catch((e) => console.log(e))
-            } 
-            else if (action === 'init_sensors') {
-                console.log('Re-Detect Sensors Initiated')
-                socket.emit('init_sensors')
+        } 
+
+        else if (action === 'delete_sensor_data') {
+            if (window.confirm('Are you sure you want to delete sensor data?')) {
+            socket.emit('delete', 'sensors.csv')
             }
-            else {
-                socket.emit('delete', 'sensors.csv')
+        }   
+
+        else if (action === 'init_sensors') {
+            console.log('Re-Detect Sensors Initiated')
+            socket.emit('init_sensors')
+        }
+
+        else if (action === 'download_system_data') {
+            console.log('Download requested: ', action)
+            axios.get(ENDPOINT + '/api/system')
+                .then ((r) => {
+                    download('system', r.data)
+                })
+                .catch((e) => console.log(e))
+        }
+        else if (action === 'delete_system_data') {
+            if (window.confirm('Are you sure you want to delete system data?')) {
+            socket.emit('delete', 'system.txt')
             }
-        }       
-        else if (target === 'system') {
-            if (action === 'download') {
-                console.log('Download requested: ', target)
-                axios.get(ENDPOINT + '/api/system')
-                    .then ((r) => {
-                        download(target, r.data)
-                    })
-                    .catch((e) => console.log(e))
-            }
-            else {
-                socket.emit('delete', 'system.txt')
-            }
-        }      
+        }
     }
 
     function download(target, data) {
@@ -82,7 +86,7 @@ function SystemButton(props) {
 
     return(
         <>
-            <Button size="sm9" variant={color} onClick={(f) => send_to_server(target)}>{icon}</Button>
+            <Button size="sm9" variant={color} onClick={(f) => send_to_server(action)}>{icon}</Button>
         </>
     )
 }

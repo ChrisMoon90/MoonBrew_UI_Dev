@@ -9,11 +9,11 @@ import Header from './components/Header'
 import VesselContainer from './components/VesselContainer'
 import LogButtons from './components/LogButtons'
 import NewAlert from './components/Alert'
-import VesselSetting from './components/VesselSetting'
+import VesselConfig from './components/VesselConfig'
 import HighChart from './components/Highchart'
 import Timer from './components/Timer'
-import SystemSet from './components/SystemSet'
-import Configuration from './components/Configuration'
+import SystemConfig from './components/SystemConfig'
+import Diagnostics from './components/Diagnostics'
 
 // const ENDPOINT = "http://192.168.0.30:5000"
 const ENDPOINT = "http://24.7.0.49:80"
@@ -58,16 +58,16 @@ function App() {
     mode = cache['SYSTEM']['Static']['Mode']
     if (mode === 'Smoke') {
       home = <VesselContainer vessel_name = 'Smoker' cache = {cache}/>;
-      settings = <VesselSetting vessel_name = 'Smoker' cache = {cache}/>}
+      settings = <VesselConfig vessel_name = 'Smoker' cache = {cache}/>}
     else if (mode === 'Brew') {
       home = [<VesselContainer key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
               <VesselContainer key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
               <VesselContainer key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>];
-      settings = [<VesselSetting key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
-                  <VesselSetting key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
-                  <VesselSetting key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}          
+      settings = [<VesselConfig key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
+                  <VesselConfig key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
+                  <VesselConfig key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}          
     else if (mode === 'Ferment') {home = <VesselContainer vessel_name = 'Fermenter' cache = {cache}/>;
-                                  settings = <VesselSetting vessel_name = 'Fermenter' cache = {cache}/>}
+                                  settings = <VesselConfig vessel_name = 'Fermenter' cache = {cache}/>}
     else {home = 'Waiting for connection to server...';
           settings = 'Waiting for connection to server...'}
   } catch(err){console.log('Failed to Load Vessel')}
@@ -99,11 +99,11 @@ function App() {
                 <Timer cache = {cache}/>
               </Route>
               <Route path="/system">
-                <SystemSet cache = {cache}/>
+                <SystemConfig cache = {cache}/>
                 {settings}
               </Route>
               <Route path='/diagnostics'>
-                <Configuration cache = {cache}/>  
+                <Diagnostics cache = {cache}/>  
               </Route>
             </Switch>
             <NewAlert />

@@ -38,7 +38,7 @@ function Header (props) {
             </LinkContainer>
             <NavDropdown title="Settings" id="basic-nav-dropdown" className="ms-auto">
               <LinkContainer to="/system">
-                <NavDropdown.Item>System</NavDropdown.Item>
+                <NavDropdown.Item>Configuration</NavDropdown.Item>
               </LinkContainer>
               <LinkContainer to="/diagnostics">
                 <NavDropdown.Item> Diagnostics </NavDropdown.Item>
