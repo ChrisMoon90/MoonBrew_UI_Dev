@@ -25,6 +25,7 @@ export {ENDPOINT}
 function App() {
 
   const [cache, set_cache] = useState("")
+  const [new_read, set_reading] = useState("")
 
   useEffect(() => {
 
@@ -37,9 +38,21 @@ function App() {
       }
     )
 
+    socket.on("reading_update", cache => {
+      if (isMounted) {
+        let b = {}
+        for (let r in cache['SENSORS']) {
+          b[r] = cache['SENSORS'][r]['cur_read']
+        }
+        console.log('Reading Update: ', b)
+        set_reading(b)
+        }
+      }
+    )
+
     socket.on("cache", cache => {
       if (isMounted) {
-        console.log('Cache Received', cache)
+        console.log('Cache Update', cache)
         set_cache(cache)
         }
       }
@@ -57,17 +70,17 @@ function App() {
   try {
     mode = cache['SYSTEM']['Static']['Mode']
     if (mode === 'Smoke') {
-      home = <VesselContainer vessel_name = 'Smoker' cache = {cache}/>;
-      settings = <VesselConfig vessel_name = 'Smoker' cache = {cache}/>}
+      home = <VesselContainer vessel_name = 'Smoker' cache = {cache} new_read = {new_read}/>;
+      settings = <VesselConfig vessel_name = 'Smoker' cache = {cache} new_read = {new_read}/>}
     else if (mode === 'Brew') {
-      home = [<VesselContainer key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
-              <VesselContainer key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
-              <VesselContainer key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>];
-      settings = [<VesselConfig key = '1' vessel_name = 'Boil_Kettle' cache = {cache}/>,
-                  <VesselConfig key = '2' vessel_name = 'Mash_Tun' cache = {cache}/>,
-                  <VesselConfig key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache}/>]}          
-    else if (mode === 'Ferment') {home = <VesselContainer vessel_name = 'Fermenter' cache = {cache}/>;
-                                  settings = <VesselConfig vessel_name = 'Fermenter' cache = {cache}/>}
+      home = [<VesselContainer key = '1' vessel_name = 'Boil_Kettle' cache = {cache} new_read = {new_read}/>,
+              <VesselContainer key = '2' vessel_name = 'Mash_Tun' cache = {cache} new_read = {new_read}/>,
+              <VesselContainer key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache} new_read = {new_read}/>];
+      settings = [<VesselConfig key = '1' vessel_name = 'Boil_Kettle' cache = {cache} new_read = {new_read}/>,
+                  <VesselConfig key = '2' vessel_name = 'Mash_Tun' cache = {cache} new_read = {new_read}/>,
+                  <VesselConfig key = '3' vessel_name = 'Hot_Liquor_Tank' cache = {cache} new_read = {new_read}/>]}          
+    else if (mode === 'Ferment') {home = <VesselContainer vessel_name = 'Fermenter' cache = {cache} new_read = {new_read}/>;
+                                  settings = <VesselConfig vessel_name = 'Fermenter' cache = {cache} new_read = {new_read}/>}
     else {home = 'Waiting for connection to server...';
           settings = 'Waiting for connection to server...'}
   } catch(err){console.log('Failed to Load Vessel')}
