@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table'
 import { ButtonGroup, Row, Col } from 'react-bootstrap'
 
 import SystemButton from './SystemButton'
+import SensorRead from './sensor_read'
 
 function Configuration(props) {
 
@@ -20,22 +21,22 @@ function Configuration(props) {
     let s_num
     let s_name
     let com_type
-    let s_read
+    // let s_read
     for (let key in sensors) {
-      try{
-        s_num = Number(key)
-        s_name = sensors[key]['dev_name']
-        com_type = sensors[key]['com_type']
-        s_read = sensors[key]['cur_read']
-    } catch(err) {}
-      s_rows.push(
-        <tr key = {key}>
-          <td>{s_num}</td>
-          <td>{s_name}</td>
-          <td>{com_type}</td>
-          <td>{s_read}</td>
-        </tr>
-      )
+         try{
+            s_num = Number(key)
+            s_name = sensors[key]['dev_name']
+            com_type = sensors[key]['com_type']
+            // s_read = sensors[key]['cur_read']
+        } catch(err) {}
+        s_rows.push(
+            <tr key = {key}>
+            <td>{s_num}</td>
+            <td>{s_name}</td>
+            <td>{com_type}</td>
+            <td><SensorRead cache = {props.cache} index = {key}/></td>
+            </tr>
+        )
     }
 
     let a_rows = []

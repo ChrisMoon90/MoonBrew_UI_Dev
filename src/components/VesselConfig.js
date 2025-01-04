@@ -9,6 +9,7 @@ import NameUpdater from './NameUpdater';
 import ParamUpdater from './ParamUpdater';
 import AddRemove from './AddRemove'
 import ActorType from './ActorType';
+import SensorRead from './sensor_read';
 
 
 function VesselSetting(props) {
@@ -32,26 +33,19 @@ function VesselSetting(props) {
   let s_rows = []
   let s_num
   let s_name
-  let s_read
+  let index
   let com_type
-  let unit
-  let sval
   for (let key in v_dict['Sensors']) {
     try{
       s_num = Number(key) + 1
       s_name = v_dict['Sensors'][key]['name'];
-      s_read = cache['SENSORS'][v_dict['Sensors'][key]['index']]['cur_read']
+      index = v_dict['Sensors'][key]['index']
       com_type = cache['SENSORS'][v_dict['Sensors'][key]['index']]['com_type']
-      sval = cache['SENSORS'][v_dict['Sensors'][key]['index']]['dev_name']
-      if (sval.search("Text") === Number(-1)){unit = " \xB0F"}
-      else {unit = " SG"}
   } catch(err) {
     console.log('VesselSetting Error: key')
     s_num = 'ERR'
     s_name = 'ERR'
-    s_read = 'ERR'
     com_type = 'ERR'
-    unit = ''
   }
     s_rows.push(
       <tr key = {key}>
@@ -59,7 +53,7 @@ function VesselSetting(props) {
         <td>{s_name} <NameUpdater hw_type = 'Sensor' vessel = {vessel_name} hw_id = {key} v_dict = {v_dict}/></td>
         <td><IndexUpdater vessel = {vessel_name} hw_type = 'Sensor' devs = {sensors} hw_id = {key} v_dict = {v_dict}/></td>
         <td>{com_type}</td>
-        <td>{s_read}{unit}</td>
+        <td><SensorRead cache = {props.cache} index = {index}/></td>
       </tr>
     )
   }
