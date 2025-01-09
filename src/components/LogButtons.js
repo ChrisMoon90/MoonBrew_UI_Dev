@@ -33,7 +33,9 @@ function LogButtons(props) {
       }
 
     function deleteLog() {
-        socket.emit('delete_log');
+        if (window.confirm('Are you sure you want to delete sensor data?')) {
+        socket.emit('delete', 'sensors.csv')
+        }
     }
 
     return(
@@ -41,7 +43,7 @@ function LogButtons(props) {
             
             <ButtonGroup aria-label="Basic example">
                 {Button_read}
-                <Button variant="danger" onClick={() => { if (window.confirm('Are you sure you wish to delete the log?')) deleteLog() } }>Delete Log</Button>
+                <Button variant="danger" onClick={() => { deleteLog() } }>Delete Log</Button>
             </ButtonGroup>
         </div>
     )

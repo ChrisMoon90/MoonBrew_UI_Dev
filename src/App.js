@@ -29,22 +29,26 @@ function App() {
 
   useEffect(() => {
     let isMounted = true
+    if (isMounted) {
+      socket.on("connect", msg => {
+          console.log("Connected to socket.io server!")
+      })
 
-    socket.on("connect", msg => {
-      if (isMounted) {
-        console.log("Connected to socket.io server!")
-        }
-      }
-    )
+      socket.on("cache", cache => {
+        if (isMounted) {
+          console.log('Main Cache Update', cache)
+          set_cache(cache)
+          }
+      })
 
-    socket.on("cache", cache => {
-      if (isMounted) {
-        console.log('Main Cache Update', cache)
-        set_cache(cache)
-        }
-      }
-    )
-
+      socket.on("reading_update_main", cache => {
+          let b = {}
+          for (let r in cache['SENSORS']) {
+              b[r] = cache['SENSORS'][r]['cur_read']
+          }
+          console.log('Reading Update: ', b)
+      })
+    }
     return () => { 
         console.log('Unmounted Home')
         isMounted = false

@@ -4,7 +4,7 @@ import { socket } from '../App'
 
 function SensorRead(props) {
 
-    console.log('SensorRead Render')
+    // console.log('SensorRead Render')
 
     const [new_read, setNewRead] = useState('')
   
@@ -34,7 +34,7 @@ function SensorRead(props) {
                 for (let r in cache['SENSORS']) {
                     b[r] = cache['SENSORS'][r]['cur_read']
                 }
-                console.log('Reading Update: ', b)
+                // console.log('Reading Update: ', b)
                 setNewRead(b[index] + unit)
             })  
 

@@ -21,13 +21,11 @@ function Configuration(props) {
     let s_num
     let s_name
     let com_type
-    // let s_read
     for (let key in sensors) {
          try{
             s_num = Number(key)
             s_name = sensors[key]['dev_name']
             com_type = sensors[key]['com_type']
-            // s_read = sensors[key]['cur_read']
         } catch(err) {}
         s_rows.push(
             <tr key = {key}>
