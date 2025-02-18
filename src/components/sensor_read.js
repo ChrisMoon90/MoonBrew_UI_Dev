@@ -4,43 +4,37 @@ import { socket } from '../App'
 
 function SensorRead(props) {
 
-    // console.log('SensorRead Render')
+    console.log('SensorRead Render')
 
     const [new_read, setNewRead] = useState('')
   
     useEffect(() => {
-        let isMounted = true
-        if (isMounted) {
 
-            let index
-            try {
-                index = props.index
-            } catch {}
-
-            let b = {}
-            for (let r in props.cache['SENSORS']) {
-                b[r] = props.cache['SENSORS'][r]['cur_read']
-            }
-            // console.log('Cache Reading Update: ', b)
+        function get_reading(cache){
             let unit
-            let sval = props.cache['SENSORS'][index]['dev_name']
-            if (sval.search("Temp") === 0) {unit = " \xB0F"}
-            else if (sval.search("pH") === 0) {unit = ' pH'}
-            else {unit = " SG"} 
-            setNewRead(b[index] + unit)
-
-            socket.on("reading_update", cache => {
+            try {
+                let sval = cache['SENSORS'][props.index]['dev_name']
+                if (sval.search("Temp") === 0) {unit = " \xB0F"}
+                else if (sval.search("pH") === 0) {unit = ' pH'}
+                else {unit = " SG"} 
+        
                 let b = {}
                 for (let r in cache['SENSORS']) {
                     b[r] = cache['SENSORS'][r]['cur_read']
                 }
                 // console.log('Reading Update: ', b)
-                setNewRead(b[index] + unit)
-            })  
+                setNewRead(b[props.index] + unit)
+            } catch {}
 
         }
+
+        get_reading(props.cache)
+
+        socket.on("reading_update", cache => {
+            get_reading(cache)
+        })  
+
         return () => { 
-            isMounted = false
             socket.off("reading_update")
             console.log('unmounted sensor_read')
         }

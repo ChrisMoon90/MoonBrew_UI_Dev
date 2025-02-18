@@ -26,23 +26,22 @@ const HighChart = (props) => {
 
     useEffect(() => {
 
-        let isMounted = true
-        if (isMounted) {
+        // let isMounted = true
+        // if (isMounted) {
         
             socket.on("sensor_log_update",  msg => {
                 setUpdate(update => update + 1)
                 console.log('Sensor Log Update: ', update)
             })
-        }
+        // }
         return () => { 
-            isMounted = false
+            // isMounted = false
             socket.off("sensor_log_update")
         }
 
-      }, [cache, update]);
+    }, [cache, update]);
 
-    
-    
+
     let title0 = ''
     let n0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}
     let t0 = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null}

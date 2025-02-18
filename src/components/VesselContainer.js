@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container'
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap'
 
 import ActorButtons from './ActorButtons';
 import SensorRead from './sensor_read';

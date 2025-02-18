@@ -1,10 +1,12 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import React from 'react'
+import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import { useState, useEffect } from 'react'
 
 import { socket } from '../App';
 
 function ActorButtons(props) {
+    
     let vessel = props.vessel
     let cache
     let v_dict
@@ -16,6 +18,20 @@ function ActorButtons(props) {
         s_dict = props.cache['SYSTEM']
         auto_state = s_dict['AutoStates'][vessel]
     } catch(err){}
+
+    useEffect(() => {
+
+        socket.on("actor_update", cache => {
+            let b = {}
+            for (let r in cache['SENSORS']) {
+                b[r] = cache['SENSORS'][r]['cur_read']
+            }
+            console.log('Reading Update: ', b)
+        })
+        return () => { 
+            console.log('Unmounted Actor Buttons')
+        }
+    }, []);
 
     let p_buttons = []
     let btn
@@ -50,7 +66,7 @@ function ActorButtons(props) {
     function toggleAutoState() {
         s_dict['AutoStates'][vessel] = !auto_state
         console.log('auto_state updated: ', s_dict)
-        socket.emit('system_update', s_dict)
+        socket.emit('auto_update', s_dict)
     } 
 
     return(
