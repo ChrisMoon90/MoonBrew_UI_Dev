@@ -16,8 +16,8 @@ import SystemConfig from './components/SystemConfig'
 import Diagnostics from './components/Diagnostics'
 
 // const ENDPOINT = "http://192.168.0.30:5000"
-const ENDPOINT = "http://24.7.0.49:80"
-// const ENDPOINT = window.location.origin
+// const ENDPOINT = "http://24.7.0.49:80"
+const ENDPOINT = window.location.origin
 console.log(ENDPOINT)
 export const socket = io(ENDPOINT)
 export {ENDPOINT}
