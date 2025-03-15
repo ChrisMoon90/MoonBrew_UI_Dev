@@ -16,8 +16,8 @@ import SystemConfig from './components/SystemConfig'
 import Diagnostics from './components/Diagnostics'
 
 // const ENDPOINT = "http://192.168.0.30:5000"
-// const ENDPOINT = "http://24.7.0.49:80"
-const ENDPOINT = window.location.origin
+const ENDPOINT = "http://24.7.0.49:80"
+// const ENDPOINT = window.location.origin
 console.log(ENDPOINT)
 export const socket = io(ENDPOINT)
 export {ENDPOINT}
@@ -36,7 +36,7 @@ function App() {
 
       socket.on("cache", cache => {
         if (isMounted) {
-          console.log('Main Cache Update', cache)
+          console.log('Main Cache Update In', cache)
           set_cache(cache)
           }
       })
@@ -46,7 +46,7 @@ function App() {
           for (let r in cache['SENSORS']) {
               b[r] = cache['SENSORS'][r]['cur_read']
           }
-          console.log('Reading Update: ', b)
+          console.log('Reading Update Main: ', b)
       })
     }
     return () => { 

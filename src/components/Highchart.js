@@ -60,53 +60,45 @@ const HighChart = (props) => {
                 t0[index + 1] = cache['SENSORS'][index]['dev_name'].split(' ')[0]
             }
         }
+       
+        // ADD TEMP AXIS FIRST
+        ty0.push('Temp')
+        let y_add = {
+            labels: {
+                format: '{value}°F',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'Temperature',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: false
+        }
+        y0.push(y_add)
 
+        // LOOP THROUGH AXES & SERIES
         for (let i in t0) {
             if (t0[i] != null) {
 
                 // TEMPERATURE SETTINGS
                 if(t0[i] === 'Temp') {
-                    
-                    if (ty0.indexOf('Temp') === -1) {
-                        ty0.push('Temp')
-                        let opp
-                        if (ty0.indexOf('Temp') === 0) {opp = false} else {opp = true}
-                        let y_add = {
-                            labels: {
-                                format: '{value}°F',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
-                                }
-                            },
-                            title: {
-                                text: 'Temperature',
-                                style: {
-                                    color: Highcharts.getOptions().colors[1]
-                                }
-                            },
-                            opposite: opp
-                        }
-                        y0.push(y_add)
-                    }
-
                     let s_add = {
                         name: n0[i],
-                        yAxis: ty0.indexOf('Temp'), 
+                        yAxis:  0, 
                         tooltip: {
                             valueSuffix: ' °F'
                             }  
                         }
-                    s0.push(s_add)  
-
-
-
+                    s0.push(s_add) 
+ 
                 // SPECIFIC GRAVITY SETTINGS
                 } else if (t0[i] === 'SG') { 
-
                     if (ty0.indexOf('SG') === -1) {
                         ty0.push('SG')
-                        let opp
-                        if (ty0.indexOf('SG') === 0) {opp = false} else {opp = true}
                         let y_add =  {
                             labels: {
                                 format: '{value} SG',
@@ -120,12 +112,10 @@ const HighChart = (props) => {
                                     color: Highcharts.getOptions().colors[1]
                                 }
                             },
-                            opposite: opp
+                            opposite: true
                         }
-                        y0.push(y_add)
-                        
+                        y0.push(y_add)                      
                     } 
-
                     let s_add = {
                         name: n0[i],
                         yAxis: ty0.indexOf('SG'),
@@ -135,15 +125,10 @@ const HighChart = (props) => {
                         }
                     s0.push(s_add)
 
-            
-
                 // PH SETTINGS
                 } else { 
-
                     if (ty0.indexOf('pH') === -1) {
                         ty0.push('pH')
-                        let opp
-                        if (ty0.indexOf('pH') === 0) {opp = false} else {opp = true}
                         let y_add =  {
                             labels: {
                                 format: '{value} pH',
@@ -157,11 +142,10 @@ const HighChart = (props) => {
                                     color: Highcharts.getOptions().colors[1]
                                 }
                             },
-                            opposite: opp
+                            opposite: true
                         }
                         y0.push(y_add)
                     }
-
                     let s_add = {
                         name: n0[i],
                         yAxis: ty0.indexOf('pH'),

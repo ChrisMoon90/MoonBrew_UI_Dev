@@ -67,7 +67,7 @@ function VesselContainer(props) {
         </Container>                
       </Card.Body>
       <Card.Footer className="text-muted">
-        <ActorButtons vessel = {vessel_name} cache = {props.cache} v_dict = {v_dict}/>
+        <ActorButtons vessel = {vessel_name} cache = {props.cache}/>
       </Card.Footer>
     </Card>
   )
